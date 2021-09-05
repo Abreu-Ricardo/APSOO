@@ -27,8 +27,11 @@ import javafx.beans.*;
 import javafx.scene.control.TextField;
 import javafx.scene.*;
 import javafx.event.EventHandler;
-
 import javafx.stage.*;
+
+import java.lang.*;
+
+
 
 
 /*  
@@ -81,10 +84,11 @@ public class Prot extends Application{
     TextField emailText = new TextField();
 
 
+    // Um jeito de fazer popup eh criar uma classe com uma nova cena, e, nesse programa colocar como evento(e -> objeto.metodo())
+    // Popup teste = new Popup();
+    // Button botaoOK = new Button("OK");
+    // Scene cenaPopUp = new Scene(botaoOK, 200, 300);
 
-    Popup teste = new Popup();
-    Button botaoOK = new Button("OK");
-    Scene cenaPopUp = new Scene(botaoOK, 200, 300);
 
     
 
@@ -257,7 +261,7 @@ public class Prot extends Application{
         butaoSair.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent e){
-                System.exit(0);
+                stage.close();
                 //System.out.printf("%s\n", userTextField.getText());
             }
         });
@@ -270,6 +274,7 @@ public class Prot extends Application{
             public void handle(ActionEvent e){
                 // MANDAR DADOS PARA O BANCO DE DADOS APOS CLICAR O BOTAO DE CONFIRMAR
                 verificaCampos();
+
 
 
             }
@@ -295,11 +300,25 @@ public class Prot extends Application{
     public void verificaCampos(){
         System.out.println("\n");
 
-        if (cpfText.getText().length() > 0){
-            System.out.printf("CPF: %s\n", cpfText.getText());                    
+        // VERIFICACAO DE CPF        
+        if (cpfText.getText().length() == 11){
+            String cpf = new String();
+            cpf = cpfText.getText();
+
+            for(int i=0; i<10; i++){
+                if( Character.isDigit( cpf.charAt(i) )){
+                    System.out.println("PASSSSSSSSSSSSSSSSSSSSSSSSSSOOOOOOOOOOOUUUUUUUUUUU!!!!!!!!");
+                }
+            }
+           
+            System.out.printf("CPF: %s %d\n", cpfText.getText(), cpfText.getText().length());                    
+            
         }
         else{
             System.out.println("CPF Vazio!");
+
+            Popup.pop("ERRO!", "CPF não preenchido!");
+            return;
            
         }
 
@@ -308,6 +327,8 @@ public class Prot extends Application{
         }
         else{
             System.out.printf("Nome Vazio!\n"); 
+            Popup.pop("ERRO!", "Nome não preenchido!");
+            return;
         }
 
         if (ruaText.getText().length() > 0){
@@ -315,6 +336,8 @@ public class Prot extends Application{
         }
         else{
             System.out.printf("Endereco invalido!\n");
+            Popup.pop("ERRO!", "Endereço não preenchido!");
+            return;
         }
 
         if (numText.getText().length() > 0){
@@ -322,6 +345,8 @@ public class Prot extends Application{
         }
         else{
             System.out.printf("Numero invalido\n");
+            Popup.pop("ERRO!", "Número não preenchido!");
+            return;
         }
 
         if(bairroText.getText().length() > 0){
@@ -329,6 +354,8 @@ public class Prot extends Application{
         }
         else{
             System.out.printf("Bairro nao preechido!\n");
+            Popup.pop("ERRO!", "Bairro não preenchido!");
+            return;
         }
 
         if(cidadeText.getText().length() > 0){
@@ -336,6 +363,8 @@ public class Prot extends Application{
         }
         else{
             System.out.printf("Nome da cidade invalido \n");
+            Popup.pop("ERRO!", "Cidade não preenchida!");
+            return;
         }
 
         if(ufText.getText().length() > 0){
@@ -343,6 +372,8 @@ public class Prot extends Application{
         }
         else{
             System.out.printf("UF invalido \n");
+            Popup.pop("ERRO!", "UF não preenchida!");
+            return;
         }
 
         if(foneText.getText().length() > 0){
@@ -350,6 +381,8 @@ public class Prot extends Application{
         }
         else{
             System.out.printf("Telefone invalido \n");
+            Popup.pop("ERRO!", "Fone não preenchido!");
+            return;
         }
 
         if(emailText.getText().length() > 0){
@@ -357,6 +390,8 @@ public class Prot extends Application{
         }
         else{
             System.out.printf("Email invalido \n");
+            Popup.pop("ERRO!", "Email não preenchido!");
+            return;
         }
     }
 
