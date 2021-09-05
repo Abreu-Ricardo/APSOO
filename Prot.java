@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.control.ButtonBase.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 
 import java.beans.*;
@@ -83,13 +84,6 @@ public class Prot extends Application{
     Label userEmail = new Label("Email*:");
     TextField emailText = new TextField();
 
-
-    // Um jeito de fazer popup eh criar uma classe com uma nova cena, e, nesse programa colocar como evento(e -> objeto.metodo())
-    // Popup teste = new Popup();
-    // Button botaoOK = new Button("OK");
-    // Scene cenaPopUp = new Scene(botaoOK, 200, 300);
-
-
     
 
 
@@ -97,7 +91,8 @@ public class Prot extends Application{
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Primeira Janela");
+        stage.setTitle("Cadastro");
+        stage.getIcons().add(new Image("javaneiros.jpeg"));
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -301,15 +296,7 @@ public class Prot extends Application{
         System.out.println("\n");
 
         // VERIFICACAO DE CPF        
-        if (cpfText.getText().length() == 11){
-            String cpf = new String();
-            cpf = cpfText.getText();
-
-            for(int i=0; i<10; i++){
-                if( Character.isDigit( cpf.charAt(i) )){
-                    System.out.println("PASSSSSSSSSSSSSSSSSSSSSSSSSSOOOOOOOOOOOUUUUUUUUUUU!!!!!!!!");
-                }
-            }
+        if (cpfText.getText().length() == 11 && verificaCPF(cpfText.getText())){
            
             System.out.printf("CPF: %s %d\n", cpfText.getText(), cpfText.getText().length());                    
             
@@ -317,7 +304,7 @@ public class Prot extends Application{
         else{
             System.out.println("CPF Vazio!");
 
-            Popup.pop("ERRO!", "CPF não preenchido!");
+            Popup.pop("ERRO!", "CPF preenchido incorretamente!");
             return;
            
         }
@@ -393,6 +380,30 @@ public class Prot extends Application{
             Popup.pop("ERRO!", "Email não preenchido!");
             return;
         }
+
+        // Se chegar ao fim, significa que nao teve erro e cadastrou tudo
+        Popup.pop("Cadastro", "Cliente cadastrado com sucesso!");
+
+    }
+
+    public boolean verificaCPF(String text){
+        String cpf = new String();
+            cpf = cpfText.getText();
+
+            for(int i=0; i<10; i++){
+                if( !Character.isDigit( cpf.charAt(i) )){
+                    return false;
+                    //System.out.println("PASSSSSOOOOOOOOUUUUU!!!!!!!!");
+                }
+
+                // else{
+                //     System.out.println("CPF Inválido!");
+
+                //     Popup.pop("ERRO!", "CPF Inválido!");
+                //     return false;
+                // }
+            }
+            return true;
     }
 
     public static void main (String[] args){
