@@ -28,6 +28,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.*;
 import javafx.event.EventHandler;
 
+import javafx.stage.*;
+
 
 /*  
 
@@ -43,8 +45,8 @@ import javafx.event.EventHandler;
 public class Prot extends Application{
 
     // CPF
-    TextField cpfText = new TextField();
     Label userCPF = new Label("CPF*:");
+    TextField cpfText = new TextField();
 
     // Nome
     Label userNome = new Label("Nome*:");
@@ -80,7 +82,11 @@ public class Prot extends Application{
 
 
 
+    Popup teste = new Popup();
+    Button botaoOK = new Button("OK");
+    Scene cenaPopUp = new Scene(botaoOK, 200, 300);
 
+    
 
 
 
@@ -91,26 +97,47 @@ public class Prot extends Application{
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-
-
-        // CRIANDO SCENE !!!!!!!!!!!!!
+    
+        // CRIANDO SCENE !!
         Scene scene = new Scene(grid, 600, 400);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
                 @Override
-                public void handle(KeyEvent k) {
-                    if (k.getCode().toString() == "ENTER"){
-                        //System.out.println(k.getTarget());
-                        //System.out.println("ASDADASDASDASDAS");
-                        verificaCampos();
+                // Se a tecla ENTER for acionada, invoca metodo verificaCampos
+                public void handle(KeyEvent teclaAcionada) {
+
+
+                    switch (teclaAcionada.getCode()) {
+                        case ENTER:
+                            verificaCampos();
+                            break;
+                        case ESCAPE:
+                            System.out.println("\nFechando programa...");
+                            System.exit(0);
+                            break;
+                    
+                        default:
+                            break;
                     }
-                    // else{
-                    //     System.out.println(k.getCode().toString());
+
+                    // if (teclaAcionada.getCode().toString() == "ENTER"){
+                    //     //System.out.println(teclaAcionada.getCode().toString());
+                    //     //System.out.println("ASDADASDASDASDAS");
+                    //     verificaCampos();
                     // }
+     
+                    // // Se a tecla ESCAPE for acionada, invoca encerra o processo
+                    // if (teclaAcionada.getCode().toString() == "ESCAPE"){
+                    //     //System.out.println(teclaAcionada.getCode().toString());
+                    //     System.out.println("\nFechando programa...");
+                    //     System.exit(0);
+                    // }
+                    
                     
                 }
             });
         stage.setScene(scene);
+        
         
 
         //The gap properties manage the spacing between the rows and columns
@@ -136,6 +163,7 @@ public class Prot extends Application{
         // Area de preechimento de texto
         //TextField cpfText = new TextField();
         cpfText.setPromptText("Digite o seu CPF");
+        
         grid.add(cpfText, 1, 1);
 
         // Nome
@@ -179,26 +207,26 @@ public class Prot extends Application{
         grid.add(cidadeText, 1, 6);
 
         // UF
-        Label userUF = new Label("UF*:");
+        //Label userUF = new Label("UF*:");
         grid.add(userUF, 0, 7);
 
-        TextField ufText = new TextField();
+        //TextField ufText = new TextField();
         ufText.setPromptText("Nome da UF");
         grid.add(ufText, 1, 7);
 
         // Fone
-        Label userFone = new Label("Telefone*:");
+        //Label userFone = new Label("Telefone*:");
         grid.add(userFone, 0, 8);
 
-        TextField foneText = new TextField();
+        //TextField foneText = new TextField();
         foneText.setPromptText("Digite seu telefone");
         grid.add(foneText, 1, 8);
 
         // Email
-        Label userEmail = new Label("Email*:");
+        //Label userEmail = new Label("Email*:");
         grid.add(userEmail, 0, 9);
 
-        TextField emailText = new TextField();
+        //TextField emailText = new TextField();
         emailText.setPromptText("Digite seu email");
         grid.add(emailText, 1, 9);
 
@@ -229,7 +257,7 @@ public class Prot extends Application{
         butaoSair.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent e){
-                System.exit(-1);
+                System.exit(0);
                 //System.out.printf("%s\n", userTextField.getText());
             }
         });
@@ -241,6 +269,7 @@ public class Prot extends Application{
             @Override
             public void handle(ActionEvent e){
                 // MANDAR DADOS PARA O BANCO DE DADOS APOS CLICAR O BOTAO DE CONFIRMAR
+                verificaCampos();
 
 
             }
@@ -262,65 +291,69 @@ public class Prot extends Application{
         stage.show();
     }
 
+    // Metodo para vericar se os campos foram preenchidos corretamente
     public void verificaCampos(){
+        System.out.println("\n");
+
         if (cpfText.getText().length() > 0){
-            System.out.printf("%s\n", cpfText.getText());                    
+            System.out.printf("CPF: %s\n", cpfText.getText());                    
         }
         else{
             System.out.println("CPF Vazio!");
+           
         }
 
         if (nomeText.getText().length() > 0){
-            System.out.printf("%s\n", nomeText.getText()); 
+            System.out.printf("Nome: %s\n", nomeText.getText()); 
         }
         else{
             System.out.printf("Nome Vazio!\n"); 
         }
 
         if (ruaText.getText().length() > 0){
-            System.out.printf("%s\n", ruaText.getText());
+            System.out.printf("RUA: %s\n", ruaText.getText());
         }
         else{
             System.out.printf("Endereco invalido!\n");
         }
 
         if (numText.getText().length() > 0){
-            System.out.printf("%s\n", numText.getText());
+            System.out.printf("N: %s\n", numText.getText());
         }
         else{
             System.out.printf("Numero invalido\n");
         }
 
         if(bairroText.getText().length() > 0){
-            System.out.printf("%s\n", userBairro.getText());
+            System.out.printf("Bairro: %s\n", bairroText.getText());
         }
         else{
             System.out.printf("Bairro nao preechido!\n");
         }
 
         if(cidadeText.getText().length() > 0){
-            System.out.printf("%s\n", cidadeText.getText());
+            System.out.printf("Cidade: %s\n", cidadeText.getText());
         }
         else{
             System.out.printf("Nome da cidade invalido \n");
         }
 
         if(ufText.getText().length() > 0){
-            System.out.printf("%s\n", ufText.getText());
+            System.out.printf("UF: %s\n", ufText.getText());
         }
         else{
             System.out.printf("UF invalido \n");
         }
 
         if(foneText.getText().length() > 0){
-            System.out.printf("%s\n", foneText.getText());
+            System.out.printf("Fone: %s\n", foneText.getText());
         }
         else{
             System.out.printf("Telefone invalido \n");
         }
 
         if(emailText.getText().length() > 0){
-            System.out.printf("%s\n", emailText.getText());
+            System.out.printf("Email: %s\n", emailText.getText());
         }
         else{
             System.out.printf("Email invalido \n");
