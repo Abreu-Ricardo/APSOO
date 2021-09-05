@@ -31,6 +31,7 @@ public class Popup {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(titulo);
         window.setMinWidth(250);
+        window.setMinHeight(50);
 
 
         Label l = new Label();
