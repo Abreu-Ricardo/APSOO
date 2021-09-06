@@ -1,0 +1,2 @@
+javac -classpath mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar --module-path "/home/igor/Desktop/TrabAPSOO/APSOO/openjfx-16_linux-x64_bin-sdk/javafx-sdk-16/lib" --add-modules javafx.controls Prot.java Popup.java Conexao.java Cliente.java ClienteDAO.java
+java -classpath .:mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar --module-path "/home/igor/Desktop/TrabAPSOO/APSOO/openjfx-16_linux-x64_bin-sdk/javafx-sdk-16/lib" --add-modules javafx.controls Prot 

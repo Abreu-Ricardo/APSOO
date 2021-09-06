@@ -33,7 +33,7 @@ import javafx.stage.*;
 import java.lang.*;
 
 
-
+import java.sql.*;
 
 /*  
 
@@ -84,8 +84,16 @@ public class Prot extends Application{
     Label userEmail = new Label("Email*:");
     TextField emailText = new TextField();
 
-    
+    public void insere(){
 
+        ClienteDAO clienteDAO = new ClienteDAO();
+
+        Cliente cliente = new Cliente(cpfText.getText(), nomeText.getText(), ruaText.getText(), Integer.parseInt(numText.getText()), bairroText.getText(), cidadeText.getText(), ufText.getText(), foneText.getText(), emailText.getText());
+
+        clienteDAO.save(cliente);
+
+
+    }
 
 
 
@@ -109,6 +117,7 @@ public class Prot extends Application{
                     switch (teclaAcionada.getCode()) {
                         case ENTER:
                             verificaCampos();
+                            insere();
                             break;
                         case ESCAPE:
                             System.out.println("\nFechando programa...");
@@ -269,6 +278,7 @@ public class Prot extends Application{
             public void handle(ActionEvent e){
                 // MANDAR DADOS PARA O BANCO DE DADOS APOS CLICAR O BOTAO DE CONFIRMAR
                 verificaCampos();
+                insere();
 
 
 
@@ -406,7 +416,27 @@ public class Prot extends Application{
             return true;
     }
 
-    public static void main (String[] args){
+    
+
+    public static void main (String[] args) throws Exception{
+      
+        Conexao teste = new Conexao();
+        
+
+        Connection con = teste.createConnectionToMySQL();
+
+        if(con!=null){
+            System.out.println("Conectou");
+            con.close();
+        }else{
+            System.out.println("vish");
+        }
+       
+       
         launch();
+
+ 
+
+
     }
 }
