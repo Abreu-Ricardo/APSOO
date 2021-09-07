@@ -95,6 +95,46 @@ public class Prot extends Application{
 
     }
 
+    public void testes(){
+
+        System.out.println("teste");
+
+        ClienteDAO dummy = new ClienteDAO();
+
+        for(Cliente c : dummy.getClientes()){
+            System.out.println("Cliente: "+ c.getNome());
+
+        }
+
+        //Cliente clienteAtualizado  = new Cliente("12345678930","Ricardo","1",1,"1","1","1","1","1");
+
+        //dummy.update(clienteAtualizado);
+        dummy.deleteByCPF("12345678900");
+ 
+        for(Cliente c : dummy.getClientes()){
+            System.out.println("Cliente: "+ c.getNome());
+
+        }
+
+    }
+
+
+    public boolean isRegistered(String cpf){
+        
+        ClienteDAO dummy = new ClienteDAO();
+        boolean flag = false;
+
+        for(Cliente c : dummy.getClientes()){
+            
+            if(cpf.equals(c.getCpf())){
+                flag=true;
+            }
+        }
+
+
+        return flag;
+
+    }
 
 
     @Override
@@ -265,6 +305,9 @@ public class Prot extends Application{
         butaoSair.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent e){
+
+
+                testes();
                 stage.close();
                 //System.out.printf("%s\n", userTextField.getText());
             }
@@ -306,6 +349,13 @@ public class Prot extends Application{
         System.out.println("\n");
 
         // VERIFICACAO DE CPF        
+
+        if(isRegistered(cpfText.getText())){
+            Popup.pop("ERRO", "Usuário já cadastrado");
+            return;
+        }
+
+
         if (cpfText.getText().length() == 11 && verificaCPF(cpfText.getText())){
            
             System.out.printf("CPF: %s %d\n", cpfText.getText(), cpfText.getText().length());                    
@@ -436,7 +486,6 @@ public class Prot extends Application{
         launch();
 
  
-
 
     }
 }
