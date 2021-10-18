@@ -16,33 +16,33 @@ import java.time.LocalDate;
 import java.time.LocalDateTime; 
 
 public class Cena2 {
-
-    SisVendaDeCarros control = new SisVendaDeCarros();
-
-    ArrayList<String> listaModelosCarros = new ArrayList<>();
-    ArrayList<String> listaCores = new ArrayList<>();
-
     Stage jan;
     PopUp popup = new PopUp();
-    Cena1 C1;   // = new Cena1();
-    Cena3 C3;
+    Cena1 c1;   // = new Cena1();
+    Cena3 c3;
     String credencialCliente, idCliente;      // Identificacao do cliente
     String opcaoMarca  = null,                 // Variaveis para salvar as opcoes marcadas 
            opcaoModelo = null, 
            opcaoCor    = null; 
 
-    ChoiceBox cb1, // choice-box da marca 
-              cb2, // choice-box do modelo
-              cb3; // choice-box da cor
+    ComboBox  cb1, // combobox da marca 
+              cb2, // combobox do modelo
+              cb3; // combobox da cor
 
-    public Cena2(Cena1 c1, String credencial, String id){
-        C1 = c1;
+    public Cena2(Cena1 cena1, String credencial, String id){
+        c1 = cena1;
         credencialCliente = credencial;
         idCliente = id;
     }
 
+    public Cena2(){
+
+    }
+
     public Scene cena2(Stage janela){
         jan = janela;
+        jan.setHeight(450);
+        jan.setWidth(900);
         Scene cena2;
 
         GridPane grid2 = new GridPane();
@@ -102,24 +102,25 @@ public class Cena2 {
 
 
 
-        cb1 = new ChoiceBox();
-        ArrayList<String> listaMarcas = control.buscaMarcasCarros();
+        cb1 = new ComboBox();
         cb1.setOnAction(e -> callbackCb1());
         // Fazendo cast de String para observableArrayList  --- Trocar teste ---
-        cb1.setItems(FXCollections.observableArrayList(listaMarcas));
+        cb1.setItems(FXCollections.observableArrayList(teste));
         
-        cb2 = new ChoiceBox();
+        cb2 = new ComboBox();
         cb2.setOnAction(e -> callbackCb2());
-
-        cb3 = new ChoiceBox();
+        // Fazendo cast de String para observableArrayList  --- Trocar teste ---
+        cb2.setItems(FXCollections.observableArrayList(teste));
+        
+        cb3 = new ComboBox();
         cb3.setOnAction(e -> callbackCb3());
         // Fazendo cast de String para observableArrayList  --- Trocar teste ---
-   
+        cb3.setItems(FXCollections.observableArrayList(teste));
 
         // Colocando as caixas de opcoes em uma etiqueta para o CSS
-        cb1.getStyleClass().add("choice-box");
-        cb2.getStyleClass().add("choice-box");
-        cb3.getStyleClass().add("choice-box");
+        cb1.getStyleClass().add("combo-box");
+        cb2.getStyleClass().add("combo-box");
+        cb3.getStyleClass().add("combo-box");
 
         // Anexando todos os widgets no grid
         grid2.add(tituloCarro, 0, 0);
@@ -148,7 +149,9 @@ public class Cena2 {
     }
 
     public void trocaParaCena1(/*ActionEvent e*/){
-        jan.setScene(C1.cena1(jan));   
+        
+        c1 = new Cena1();
+        jan.setScene(c1.cena1(jan));   
 
     }
 
@@ -156,8 +159,8 @@ public class Cena2 {
         
         if ( opcaoMarca != null && (opcaoModelo != null && opcaoCor != null) ){
             
-            C3 = new Cena3(this, credencialCliente, idCliente, opcaoMarca, opcaoModelo, opcaoCor);
-            jan.setScene(C3.cena3(jan));   
+            c3 = new Cena3(this, credencialCliente, idCliente, opcaoMarca, opcaoModelo, opcaoCor);
+            jan.setScene(c3.cena3(jan));   
             
         }
 
@@ -173,20 +176,14 @@ public class Cena2 {
 
     public void callbackCb1(){
         opcaoMarca = cb1.getValue().toString();
+
         System.out.println( opcaoMarca );
-
-    
-        this.listaModelosCarros = this.control.buscaModelosCarros(opcaoMarca);
-        cb2.setItems(FXCollections.observableArrayList(this.listaModelosCarros));
-
     }
 
     public void callbackCb2(){
         opcaoModelo = cb2.getValue().toString();
+
         System.out.println( opcaoModelo );
-        
-        this.listaCores = this.control.buscaCoresCarros(opcaoModelo);
-        cb3.setItems(FXCollections.observableArrayList(this.listaCores));
     }
 
     public void callbackCb3(){
