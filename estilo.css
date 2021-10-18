@@ -1,0 +1,55 @@
+
+.root{
+    -fx-background-color: #383838;
+    -fx-font-size: 10pt;
+}
+
+
+
+.titulo {
+    /* -fx-text-fill: rgb(138, 251, 32); */
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.label{
+    -fx-text-fill: #fbefef;
+}
+
+.next{
+    -fx-background-color:rgb(28, 134, 42);
+    -fx-background-radius: 5;
+
+}
+
+.botao-erro{
+    -fx-background-color:rgb(187, 59, 59);
+    -fx-background-radius: 10;
+}
+
+
+/* Configuracoes dos botoes choice-box*/
+.choice-box{
+    -fx-color: #484848;
+}
+
+.choice-box .context-menu { 
+    -fx-background-color: rgb(255, 255, 255); 
+}
+
+.choice-box .menu-item:focused { 
+    -fx-background-color: rgb(10, 68, 70); 
+}
+
+.choice-box .menu-item > .label { 
+    -fx-text-fill: rgb(0, 0, 0); 
+}
+
+.choice-box .menu-item:focused > .label { 
+    -fx-text-fill: black; 
+}
+
+.radio-button {
+    -fx-text-fill: rgb(250, 250, 250);
+}

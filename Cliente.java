@@ -1,93 +1,49 @@
-public class Cliente{
-
-
-    private String cpf;
-    private String Nome;
-    private String Rua;
-    private int numero;
-    private String Bairro;
-    private String Cidade;
-    private String uf;
-    private String telefone;
+public class Cliente {
+    
+    private int idCliente;
+    private String endereco;
+    private String estado;
+    private String cidade;
     private String email;
 
-
-    public Cliente(String cpf, String nome, String rua, int numero, String bairro, String cidade, String uf,
-    String telefone, String email) {
-        this.cpf = cpf;
-        this.Nome = nome;
-        this.Rua = rua;
-        this.numero = numero;
-        this.Bairro = bairro;
-        this.Cidade = cidade;
-        this.uf = uf;
-        this.telefone = telefone;
+    public Cliente(int idCliente, String endereco, String estado, String cidade, String email) {
+        this.idCliente = idCliente;
+        this.endereco = endereco;
+        this.estado = estado;
+        this.cidade = cidade;
         this.email = email;
     }
 
-
-    public String getCpf() {
-        return this.cpf;
+    public int getIdCliente() {
+        return this.idCliente;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public String getNome() {
-        return this.Nome;
+    public String getEndereco() {
+        return this.endereco;
     }
 
-    public void setNome(String Nome) {
-        this.Nome = Nome;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
-    public String getRua() {
-        return this.Rua;
+    public String getEstado() {
+        return this.estado;
     }
 
-    public void setRua(String Rua) {
-        this.Rua = Rua;
-    }
-
-    public int getNumero() {
-        return this.numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public String getBairro() {
-        return this.Bairro;
-    }
-
-    public void setBairro(String Bairro) {
-        this.Bairro = Bairro;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getCidade() {
-        return this.Cidade;
+        return this.cidade;
     }
 
-    public void setCidade(String Cidade) {
-        this.Cidade = Cidade;
-    }
-
-    public String getUf() {
-        return this.uf;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
-
-    public String getTelefone() {
-        return this.telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     public String getEmail() {
@@ -98,6 +54,6 @@ public class Cliente{
         this.email = email;
     }
 
-
+    
 
 }

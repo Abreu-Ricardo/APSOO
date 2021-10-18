@@ -5,64 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ClienteDAO{
+public class ClienteDAO {
+    
 
-    //CRUD
-
-
-    //CREATE
-    public void save(Cliente cliente){
-
-        String sql = "INSERT INTO clientes(cpf,nome,rua,numero,bairro,cidade,uf,telefone,email) VALUES (?,?,?,?,?,?,?,?,?)";
+    public String buscaPessoaBanco(String credencial){
+        //Precisa ser implementado
         
-        Connection conn = null;
-        PreparedStatement pstm = null;
+        boolean tipoPessoa = true;
+        String sql;
 
-        try{
-            //Cria conexão
-            conn = Conexao.createConnectionToMySQL();
 
-            pstm = (PreparedStatement) conn.prepareStatement(sql);
-            pstm.setString(1, cliente.getCpf());
-            pstm.setString(2, cliente.getNome());
-            pstm.setString(3, cliente.getRua());
-            pstm.setInt(4, cliente.getNumero());
-            pstm.setString(5, cliente.getBairro());
-            pstm.setString(6, cliente.getCidade());
-            pstm.setString(7, cliente.getUf());
-            pstm.setString(8, cliente.getTelefone());
-            pstm.setString(9, cliente.getEmail());
-
-            System.out.println("cliente.getCpf()");
-
-            pstm.execute();
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-
-            //fechar conexões
-            try{
-                if(pstm!=null){
-                    pstm.close();
-                }
-
-                if(conn!=null){
-                    conn.close();
-                }
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+        if(credencial.length()==11){
+            sql = "SELECT nome FROM venda.pessoaf where cpf = ?";
+        }else{
+            sql = "SELECT nomeFantasia FROM venda.pessoaj where cnpj = ?";
+            tipoPessoa = false;
         }
-    }
 
 
-    //READ
-    public List<Cliente> getClientes(){
-
-        String sql = "SELECT * FROM clientes";
-
-        List<Cliente> clientes = new ArrayList<Cliente>();
+        String ret = "";
 
         Connection conn = null;
 
@@ -76,27 +37,17 @@ public class ClienteDAO{
             conn = Conexao.createConnectionToMySQL();
 
             pstm = (PreparedStatement) conn.prepareStatement(sql);
+
+            pstm.setString(1, credencial);
+
             rset = pstm.executeQuery();
 
-            while(rset.next()){
-                Cliente cliente  = new Cliente("1","1","1",1,"1","1","1","1","1");
+            rset.next();
 
-                cliente.setCpf(rset.getString("cpf"));
-                cliente.setNome(rset.getString("nome"));
-                cliente.setRua(rset.getString("rua"));
-                cliente.setNumero(rset.getInt("numero"));
-                cliente.setBairro(rset.getString("bairro"));
-                cliente.setCidade(rset.getString("cidade"));
-                cliente.setUf(rset.getString("uf"));
-                cliente.setTelefone(rset.getString("telefone"));
-                cliente.setEmail(rset.getString("email"));
-
-                clientes.add(cliente);
-
-
-
-
-            }
+            if(tipoPessoa==true)
+                ret = rset.getString("nome");
+            else
+                ret = rset.getString("nomeFantasia");
 
         }catch(Exception e){
             e.printStackTrace();
@@ -119,107 +70,17 @@ public class ClienteDAO{
 
         }
 
-        return clientes;
-
-
-    } 
-
-    //UPDATE
-    public void update(Cliente cliente){
-
-        String sql = "UPDATE clientes SET nome = ? , rua = ? , numero = ?, bairro = ? , cidade = ?, uf = ?, telefone = ?, email = ? " +
-                    "WHERE cpf = ?";
-
-        Connection conn = null;
-        PreparedStatement pstm = null;
-
-        try{
-            //Criar conexão com o banco
-            conn = Conexao.createConnectionToMySQL();
-
-            //Classe pra executar query
-            pstm = (PreparedStatement) conn.prepareStatement(sql);
-
-            //Adicionar valores para atualizar
-            pstm.setString(1, cliente.getNome());
-            pstm.setString(2, cliente.getRua());
-            pstm.setInt(3, cliente.getNumero());
-            pstm.setString(4, cliente.getBairro());
-            pstm.setString(5, cliente.getCidade());
-            pstm.setString(6, cliente.getUf());
-            pstm.setString(7, cliente.getTelefone());
-            pstm.setString(8, cliente.getEmail());
-
-            //cpf do registro que vai ser alterado
-            pstm.setString(9, cliente.getCpf());
-
-            //Executar
-            pstm.execute();
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            try{
-                if(pstm!=null){
-                    pstm.close();
-                }
-
-                if(conn!=null){
-                    conn.close();
-                }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-
-
-
+        return ret;
     }
 
-
-    //DELETE
-    public void deleteByCPF(String cpf){
-
-
-        String sql = "DELETE FROM clientes WHERE cpf = ? ";
-
-        Connection conn = null;
-
-        PreparedStatement pstm = null;
-
-        try{
-            conn = Conexao.createConnectionToMySQL();
-
-            pstm = (PreparedStatement) conn.prepareStatement(sql);
-
-
-            pstm.setString(1, cpf);
-
-            pstm.execute();
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            try{
-                if(pstm != null){
-                    pstm.close();
-                }
-
-                if(conn!=null){
-                    conn.close();
-                }
-
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-
-        }
-
-
-
-
+    public void inserirClienteBanco(Cliente cliente){
+        //A ser implementado 
     }
+
+    public void deletaClienteBanco(Cliente cliente){
+        //A ser implementado 
+    }     
+
 
 
 
