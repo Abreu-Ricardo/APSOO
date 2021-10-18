@@ -28,9 +28,35 @@
     -fx-background-radius: 10;
 }
 
+.radio-button {
+    -fx-text-fill: rgb(250, 250, 250);
+}
 
-/* Configuracoes dos botoes choice-box*/
-.choice-box{
+
+
+.combo-box{
+    -fx-color: #484848;
+}
+
+.combo-box .arrow-button{
+    -fx-background-color: rgb(28, 134, 42); 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Configuracoes dos botoes choice-box */
+/* .choice-box{
     -fx-color: #484848;
 }
 
@@ -49,7 +75,4 @@
 .choice-box .menu-item:focused > .label { 
     -fx-text-fill: black; 
 }
-
-.radio-button {
-    -fx-text-fill: rgb(250, 250, 250);
-}
+*/
