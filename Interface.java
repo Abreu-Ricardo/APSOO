@@ -14,13 +14,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalDateTime; 
 
-import java.lang.*;
-import java.sql.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class Interface extends Application{
 
     // Variaveis que seram utilizadas entre metodos
@@ -43,8 +36,11 @@ public class Interface extends Application{
     @Override
     public void start(Stage jan){
         janela = jan;
-        janela.setTitle("Interface APSOO");
+        janela.setTitle("InOut Carros");
         janela.getIcons().add(new Image("images/shop.png"));
+
+        janela.setHeight(450);
+        janela.setWidth(800);
 
         //                  ##### CENA  1 #####
         // ##### Grid da esquerda #####
@@ -372,22 +368,7 @@ public class Interface extends Application{
     // }
 
 
-    public static void main(String args[]) throws Exception{
-        
-        Conexao teste = new Conexao();
-        
-
-        Connection con = teste.createConnectionToMySQL();
-
-        if(con!=null){
-            System.out.println("Conectou");
-            con.close();
-        }else{
-            System.out.println("Não conectou");
-        }
-       
-
-
+    public static void main(String args[]){
         launch();
     }
 }
