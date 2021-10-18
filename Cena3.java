@@ -21,9 +21,12 @@ public class Cena3{
     PopUp popup = new PopUp();
     Cena1 c1;
     Cena2 c2;
+    String idEscolhido;
+    ComboBox idFuncBox; 
     int flagTipoPagamento;                      // Flag para saber qual opcao de pagamento foi clicada
     String credencialCliente, idCliente,        // Identificacao do cliente
            opcaoMarca, opcaoModelo, opcaoCor;   // Opcoes escolhidas para o carro
+    
            
     
 
@@ -51,6 +54,8 @@ public class Cena3{
     public Scene cena3(Stage janela){
 
         jan = janela;
+        jan.setHeight(450);
+        jan.setWidth(900);
 
         GridPane grid3 = new GridPane();
         grid3.setAlignment(Pos.CENTER);
@@ -59,37 +64,45 @@ public class Cena3{
 
         // Carregando a imagem para o programa
         Image calendario    = new Image("images/calendar.png");
+        Image idFuncImage   = new Image("images/idFunc.png");
         Image nomeFuncImage = new Image("images/empregado.png");
-        Image valorImage  = new Image("images/valor.png");
+        Image valorImage    = new Image("images/valor.png");
         Image tipoPagImage  = new Image("images/pagop.png");
 
         // Criando a visualizacao da imagem
         ImageView calendarioView = new ImageView(calendario);
-        ImageView nomeFuncView = new ImageView(nomeFuncImage);
-        ImageView valorView = new ImageView(valorImage);
-        ImageView tipoPagView = new ImageView(tipoPagImage);
+        ImageView idFuncView     = new ImageView(idFuncImage);
+        ImageView nomeFuncView   = new ImageView(nomeFuncImage);
+        ImageView valorView      = new ImageView(valorImage);
+        ImageView tipoPagView    = new ImageView(tipoPagImage);
+
         
         // Atribuindo o tamanho correto para os icones
-        calendarioView.setFitHeight(30);
+        calendarioView.setFitHeight(50);
         calendarioView.setPreserveRatio(true);
 
 
-        nomeFuncView.setFitHeight(30);
+        nomeFuncView.setFitHeight(50);
         nomeFuncView.setPreserveRatio(true);
 
 
-        valorView.setFitHeight(30);
+        valorView.setFitHeight(50);
         valorView.setPreserveRatio(true);
 
-        tipoPagView.setFitHeight(30);
+        tipoPagView.setFitHeight(50);
         tipoPagView.setPreserveRatio(true);
 
+        idFuncView.setFitHeight(50);
+        idFuncView.setPreserveRatio(true);
+
+
         // Titulos da cena 3
-        Label tituloRecibo = new Label("Recibo");
-        Label data = new Label("Data:                       ", calendarioView);
-        Label nomeFunc = new Label("Nome do Funcionário:    ", nomeFuncView);
-        Label valor = new Label("valor do carro:            ", valorView);
-        Label tipoPag = new Label("Tipo de Pagamento:       ", tipoPagView);
+        Label tituloRecibo  = new Label("Recibo");
+        Label data          = new Label("Data:                       ", calendarioView);
+        Label idFunc        = new Label("Id do Funcionário:    "      , idFuncView);
+        Label nomeFunc      = new Label("Nome do Funcionário:    "    , nomeFuncView);
+        Label valor         = new Label("valor do carro:            " , valorView);
+        Label tipoPag       = new Label("Tipo de Pagamento:       "   , tipoPagView);
 
         tituloRecibo.getStyleClass().add("titulo");
 
@@ -103,8 +116,9 @@ public class Cena3{
         // APAGAR
         //System.out.println( t  );
         Label valorData = new Label(d);
+
         // Pegar o nome do func e por como String
-        Label nomeFuncText = new Label("Exemplo -> Carlos Alberto");
+        Label nomeFuncText = new Label("Escolha o id do func");
 
         // Pegar o cpf do func e por como String
         Label valortext = new Label("R$ 60000,00");
@@ -116,6 +130,12 @@ public class Cena3{
         // Botoes para andar entre as cenas
         Button next3  = new Button("Next");
         Button volta3 = new Button("Voltar");
+
+        // ComboBox para escolher o idFuncionario
+        ObservableList<String> idsFunc = FXCollections.observableArrayList("Op1", "Op2", "Op3");
+        idFuncBox = new ComboBox(idsFunc);
+
+        idFuncBox.getStyleClass().add("choice-box");
         
         
 
@@ -144,29 +164,36 @@ public class Cena3{
         // Acoes dos botoes da cena 2
         volta3.setOnAction(e -> trocaParaCena2());
         next3.setOnAction(e -> voltaParaCena1());
+        idFuncBox.setOnAction(e -> pegaIdFunc(nomeFuncText));
 
         // COLOCAR TITULO
         grid3.add(tituloRecibo, 0, 0);
-        grid3.add(data,         0, 1);
-        grid3.add(nomeFunc,     0, 2);
-        grid3.add(valor,      0, 3);
-        grid3.add(tipoPag,      0, 4);
+        grid3.add(valor,        0, 1);
+        grid3.add(data,         0, 2);
+        grid3.add(idFunc,       0, 3);
+        grid3.add(nomeFunc,     0, 4);
+        grid3.add(tipoPag,      0, 5);
+
+        grid3.add(nomeFuncText, 1, 4);
 
 
         // Colocando botoes
-        grid3.add(next3,  1, 5);
-        grid3.add(volta3, 0, 5);
+        grid3.add(next3,  1, 6);
+        grid3.add(volta3, 0, 6);
+
+        
 
         // Colocando RadioButtons
         //grid3.add(group, 1, 4);
-        grid3.add(pagamentoDinheiro,      1, 4);
-        grid3.add(pagamentoFinanciamento, 2, 4);
-        grid3.add(pagamentoCartao,        3, 4);
+        grid3.add(pagamentoDinheiro,      1, 5);
+        grid3.add(pagamentoFinanciamento, 2, 5);
+        grid3.add(pagamentoCartao,        3, 5);
 
-        // 
-        grid3.add(valorData,    1, 1);
-        grid3.add(nomeFuncText, 1, 2);
-        grid3.add(valortext,  1, 3);
+        // Colocando os valores que serao mostrados
+        grid3.add(valortext,    1, 1);
+        grid3.add(valorData,    1, 2);
+        //grid3.add(nomeFuncText, 1, 3);
+        grid3.add(idFuncBox,       1, 3);
 
         cena3 = new Scene(  grid3, 850, 300);
         cena3.getStylesheets().add("estilo.css");
@@ -175,8 +202,21 @@ public class Cena3{
     }
 
     public void trocaParaCena2(/*ActionEvent e*/){
+
+        c2 = new Cena2();
         jan.setScene(c2.cena2(jan));   
 
+    }
+
+    public void pegaIdFunc(Label nomeFuncionario){
+
+        // IGOR ******************* IGOR
+        // puxar do BD os nomes do funcionarios, o id
+        // vai ficar salvo nessa var
+        idEscolhido = idFuncBox.getValue().toString();
+
+        // colocar o nome no setText
+        nomeFuncionario.setText(idFuncBox.getValue().toString());
     }
 
     public void pegaPagamento(int formaPag){
