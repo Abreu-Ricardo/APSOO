@@ -1,8 +1,16 @@
 #!/bin/bash
 
-#caminho=$(pwd);
-caminho='javafx/lib';
+#DIRECTORY=$(cd `dirname $0` && pwd)
 
-javac --module-path $caminho --add-modules javafx.controls Interface.java;
-java --module-path $caminho  --add-modules javafx.controls Interface;
+DIRECTORY=$(pwd);
+
+caminhoFx="$DIRECTORY/javafx/lib";
+caminhoJdbc="mysql-connector/mysql-connector.jar";
+
+echo $caminhoFx;
+echo $caminhoJdbc;
+
+javac -classpath $caminhoJdbc --module-path $caminhoFx --add-modules javafx.controls *.java;
+java  -classpath .:$caminhoJdbc --module-path $caminhoFx --add-modules javafx.controls Interface;
+
 rm *.class;
