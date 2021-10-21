@@ -4,14 +4,39 @@ public class Cliente {
     private String endereco;
     private String estado;
     private String cidade;
+    private String telefone;
+
+
     private String email;
 
-    public Cliente(int idCliente, String endereco, String estado, String cidade, String email) {
+    public Cliente(int idCliente, String endereco, String estado, String cidade, String telefone, String email) {
         this.idCliente = idCliente;
         this.endereco = endereco;
         this.estado = estado;
         this.cidade = cidade;
+        this.telefone = telefone;
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " idCliente='" + getIdCliente() + "'" +
+            ", endereco='" + getEndereco() + "'" +
+            ", estado='" + getEstado() + "'" +
+            ", cidade='" + getCidade() + "'" +
+            ", telefone='" + getTelefone() + "'" +
+            ", email='" + getEmail() + "'" +
+            "}";
+    }
+
+
+    public String getTelefone() {
+        return this.telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public int getIdCliente() {

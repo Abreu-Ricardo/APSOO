@@ -14,6 +14,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalDateTime; 
 
+import java.lang.*;
+import java.sql.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Interface extends Application{
 
     // Variaveis que seram utilizadas entre metodos
@@ -368,7 +375,22 @@ public class Interface extends Application{
     // }
 
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws Exception{
+        
+        Conexao teste = new Conexao();
+        
+
+        Connection con = teste.createConnectionToMySQL();
+
+        if(con!=null){
+            System.out.println("Conectou");
+            con.close();
+        }else{
+            System.out.println("Não conectou");
+        }
+       
+
+
         launch();
     }
 }

@@ -171,6 +171,135 @@ public class CarroDAO {
         return listaDeCores;
     }
 
+    public float calculaValorBanco(String modeloCarro,String marcaCarro,String corCarro){
+
+
+        String sql;
+
+        sql = "SELECT valor FROM venda.carro where modelo = ? AND marca = ? AND cor = ?";
+  
+
+
+        float ret = 0.0f;
+
+        Connection conn = null;
+
+        PreparedStatement pstm = null;
+
+        //Classe pra pegar dados do banco
+        ResultSet rset = null;
+
+
+        try{
+            conn = Conexao.createConnectionToMySQL();
+
+            pstm = (PreparedStatement) conn.prepareStatement(sql);
+
+            pstm.setString(1, modeloCarro);
+            pstm.setString(2, marcaCarro);
+            pstm.setString(3, corCarro);
+
+
+            rset = pstm.executeQuery();
+
+            rset.next();
+
+        
+            ret = rset.getFloat("valor");
+          
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(rset!=null){
+                    rset.close();
+                }
+
+                if(pstm!=null){
+                    pstm.close();
+                }
+
+                if(conn!=null){
+                    conn.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+        return ret;
+    }
+
+
+    public String buscaPlacaCarroBanco(String opcaoMarca,String opcaoModelo,String opcaoCor){
+
+        //Precisa ser implementado
+        String sql;
+
+
+       
+        sql = "SELECT placa FROM venda.carro where marca = ? AND modelo = ? AND cor = ?";
+       
+
+
+        String ret = "";
+
+        Connection conn = null;
+
+        PreparedStatement pstm = null;
+
+        //Classe pra pegar dados do banco
+        ResultSet rset = null;
+
+
+        try{
+            conn = Conexao.createConnectionToMySQL();
+
+            pstm = (PreparedStatement) conn.prepareStatement(sql);
+
+            pstm.setString(1, opcaoMarca);
+            pstm.setString(2, opcaoModelo);
+            pstm.setString(3, opcaoCor);
+
+            rset = pstm.executeQuery();
+
+            rset.next();
+
+      
+            ret = rset.getString("placa");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(rset!=null){
+                    rset.close();
+                }
+
+                if(pstm!=null){
+                    pstm.close();
+                }
+
+                if(conn!=null){
+                    conn.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+        return ret;
+
+
+
+
+
+    }
+
+
     public void inserirCarroBanco(Carro carro){
         //A ser implementado
     }

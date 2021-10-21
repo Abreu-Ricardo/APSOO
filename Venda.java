@@ -4,14 +4,29 @@ public class Venda {
 
     private Date date;
     private int idVenda;
-    private int idFuncionario;
+   	private String idFuncionario;
+
+
     private String situacao;
     private Carro carroDaVenda;
     private Cliente clienteDaVenda;
     private Funcionario funcionarioDaVenda;
 
+	@Override
+	public String toString() {
+		return "{" +
+			" date='" + getDate() + "'" +
+			", idVenda='" + getIdVenda() + "'" +
+			", idFuncionario='" + getIdFuncionario() + "'" +
+			", situacao='" + getSituacao() + "'" +
+			", carroDaVenda='" + getCarroDaVenda() + "'" +
+			", clienteDaVenda='" + getClienteDaVenda() + "'" +
+			", funcionarioDaVenda='" + getFuncionarioDaVenda() + "'" +
+			"}";
+	}
 
-    public Venda(Date date, int idVenda, int idFuncionario, String situacao, Carro carroDaVenda, Cliente clienteDaVenda, Funcionario funcionarioDaVenda) {
+
+    public Venda(Date date, int idVenda, String idFuncionario, String situacao, Carro carroDaVenda, Cliente clienteDaVenda, Funcionario funcionarioDaVenda) {
         this.date = date;
         this.idVenda = idVenda;
         this.idFuncionario = idFuncionario;
@@ -20,6 +35,13 @@ public class Venda {
         this.clienteDaVenda = clienteDaVenda;
         this.funcionarioDaVenda = funcionarioDaVenda;
     }
+	public String getIdFuncionario() {
+		return this.idFuncionario;
+	}
+
+	public void setIdFuncionario(String idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
 
 	public Date getDate() {
 		return this.date;
@@ -35,14 +57,6 @@ public class Venda {
 
 	public void setIdVenda(int idVenda) {
 		this.idVenda = idVenda;
-	}
-
-	public int getIdFuncionario() {
-		return this.idFuncionario;
-	}
-
-	public void setIdFuncionario(int idFuncionario) {
-		this.idFuncionario = idFuncionario;
 	}
 
 	public String getSituacao() {
@@ -77,10 +91,11 @@ public class Venda {
 		this.funcionarioDaVenda = funcionarioDaVenda;
 	}
 
-    public String pedidoRealizado(Date data, int tipoPagamento, boolean situacao){
+    public void pedidoRealizado(Date data, int tipoPagamento, String situacao){
         //A ser implementado
+		this.situacao = situacao;
 
-		return "a";
+		
     }
     
 }

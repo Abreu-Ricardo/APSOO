@@ -16,6 +16,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime; 
 
 public class Cena2 {
+
+    SisVendaDeCarros control = new SisVendaDeCarros();
+
+    ArrayList<String> listaModelosCarros = new ArrayList<>();
+    ArrayList<String> listaCores = new ArrayList<>();
+
     Stage jan;
     PopUp popup = new PopUp();
     Cena1 c1;   // = new Cena1();
@@ -25,20 +31,19 @@ public class Cena2 {
            opcaoModelo = null, 
            opcaoCor    = null; 
 
-    ComboBox  cb1, // combobox da marca 
-              cb2, // combobox do modelo
-              cb3; // combobox da cor
+           ComboBox  cb1, // combobox da marca 
+           cb2, // combobox do modelo
+           cb3; // combobox da cor
 
     public Cena2(Cena1 cena1, String credencial, String id){
         c1 = cena1;
         credencialCliente = credencial;
         idCliente = id;
     }
-
+    
     public Cena2(){
 
     }
-
     public Scene cena2(Stage janela){
         jan = janela;
         jan.setHeight(450);
@@ -103,19 +108,18 @@ public class Cena2 {
 
 
         cb1 = new ComboBox();
+        ArrayList<String> listaMarcas = control.buscaMarcasCarros();
         cb1.setOnAction(e -> callbackCb1());
         // Fazendo cast de String para observableArrayList  --- Trocar teste ---
-        cb1.setItems(FXCollections.observableArrayList(teste));
+        cb1.setItems(FXCollections.observableArrayList(listaMarcas));
         
         cb2 = new ComboBox();
         cb2.setOnAction(e -> callbackCb2());
-        // Fazendo cast de String para observableArrayList  --- Trocar teste ---
-        cb2.setItems(FXCollections.observableArrayList(teste));
-        
+
         cb3 = new ComboBox();
         cb3.setOnAction(e -> callbackCb3());
         // Fazendo cast de String para observableArrayList  --- Trocar teste ---
-        cb3.setItems(FXCollections.observableArrayList(teste));
+   
 
         // Colocando as caixas de opcoes em uma etiqueta para o CSS
         cb1.getStyleClass().add("combo-box");
@@ -149,18 +153,19 @@ public class Cena2 {
     }
 
     public void trocaParaCena1(/*ActionEvent e*/){
+        jan.setScene(c1.cena1(jan));  
+        
         
         c1 = new Cena1();
-        jan.setScene(c1.cena1(jan));   
+        jan.setScene(c1.cena1(jan)); 
 
     }
 
     public void trocaParaCena3(/*ActionEvent e*/){
         
         if ( opcaoMarca != null && (opcaoModelo != null && opcaoCor != null) ){
-            
             c3 = new Cena3(this, credencialCliente, idCliente, opcaoMarca, opcaoModelo, opcaoCor);
-            jan.setScene(c3.cena3(jan));   
+            jan.setScene(c3.cena3(jan));    
             
         }
 
@@ -176,14 +181,20 @@ public class Cena2 {
 
     public void callbackCb1(){
         opcaoMarca = cb1.getValue().toString();
-
         System.out.println( opcaoMarca );
+
+    
+        this.listaModelosCarros = this.control.buscaModelosCarros(opcaoMarca);
+        cb2.setItems(FXCollections.observableArrayList(this.listaModelosCarros));
+
     }
 
     public void callbackCb2(){
         opcaoModelo = cb2.getValue().toString();
-
         System.out.println( opcaoModelo );
+        
+        this.listaCores = this.control.buscaCoresCarros(opcaoModelo);
+        cb3.setItems(FXCollections.observableArrayList(this.listaCores));
     }
 
     public void callbackCb3(){

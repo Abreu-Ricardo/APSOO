@@ -32,8 +32,6 @@
     -fx-text-fill: rgb(250, 250, 250);
 }
 
-
-
 .combo-box{
     -fx-color: #484848;
 }
@@ -45,18 +43,10 @@
 
 
 
+/* Configuracoes dos botoes choice-box*/
 
-
-
-
-
-
-
-
-
-
-/* Configuracoes dos botoes choice-box */
-/* .choice-box{
+/*
+.choice-box{
     -fx-color: #484848;
 }
 
@@ -75,4 +65,5 @@
 .choice-box .menu-item:focused > .label { 
     -fx-text-fill: black; 
 }
+
 */

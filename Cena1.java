@@ -40,18 +40,21 @@ import javafx.scene.input.KeyEvent;
 
 
 public class Cena1 {
+
+    SisVendaDeCarros control = new SisVendaDeCarros();
+
     Stage jan;
     Cena2 c2;
     PopUp popup = new PopUp();
 
     public Scene cena1(Stage janela){
         jan = janela;
+        Scene cena1;
+        //Cena2 c2 = new Cena2();
 
         jan.setHeight(450);
         jan.setWidth(900);
 
-        Scene cena1;
-        //Cena2 c2 = new Cena2();
 
         GridPane grid1 = new GridPane();
         grid1.setAlignment(Pos.CENTER);
@@ -133,6 +136,8 @@ public class Cena1 {
 
         if (verficaCPF(cpfCliente) && verificaId(idCliente)){
             System.out.printf("Entrou no if do botaoEsq: %s \n", cpfCliente);
+            String nomeCliente = control.buscarPessoa(cpfCliente);
+            popup.popCliente("O cliente é: ", nomeCliente);  //fazer busca no banco aqui, e jogar o nome correto com o idcliente/ou cnpj cliente
             trocaParaCena2(cpfCliente, idCliente);
         }
         
@@ -153,6 +158,9 @@ public class Cena1 {
 
         if (verficaCNPJ(cnpjCliente) && verificaId(idCliente)){
             System.out.println("Entrou no if do botaoDir");
+            String nomeCliente = control.buscarPessoa(cnpjCliente);
+            popup.popCliente("O cliente é: ", nomeCliente);
+             //fazer busca no banco aqui, e jogar o nome correto com o idcliente/ou cnpj cliente
             trocaParaCena2(cnpjCliente, idCliente);
         }
 

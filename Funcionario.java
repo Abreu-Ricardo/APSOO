@@ -7,6 +7,16 @@ public class Funcionario {
     private String telefone;
     private String email;
 
+    @Override
+    public String toString() {
+        return "{" +
+            " CPF='" + getCPF() + "'" +
+            ", nome='" + getNome() + "'" +
+            ", telefone='" + getTelefone() + "'" +
+            ", email='" + getEmail() + "'" +
+            "}";
+    }
+
     public Funcionario(String CPF, String nome, String telefone, String email) {
         this.CPF = CPF;
         this.nome = nome;
@@ -47,8 +57,82 @@ public class Funcionario {
         this.email = email;
     }
 
-    public void realizaPedido(String CPF, String CNPJ, int carro, int idFuncionario, Date dataVenda,int tipoPagamento, double valorCarro){  //tem uma coisa meio estranha aqui quanto ao id do carro que acho q deveria ser placa
+    public void realizaPedido(String CPF, String CNPJ, Carro carro, String idFuncionario, Date dataVenda,int tipoPagamento, float valorCarro){  //tem uma coisa meio estranha aqui quanto ao id do carro que acho q deveria ser placa
         //Precisa ser implementado
+
+        SisVendaDeCarros control = new SisVendaDeCarros();
+
+        String nomeFuncionario = null;
+        String nomeCliente = null;
+        String credencialCliente = null;
+
+        //Passo 2 Diagrama de comunicação
+        nomeFuncionario = control.buscarFuncionario(idFuncionario);
+        
+        //Passo 3 Diagrama de comunicação
+        if(CPF.length()==11){
+            nomeCliente = control.buscarPessoa(CPF);
+            credencialCliente = CPF;
+        }else{
+            nomeCliente = control.buscarPessoa(CNPJ);
+            credencialCliente = CNPJ;
+        }
+
+        System.out.println(nomeFuncionario);
+        System.out.println(nomeCliente);
+
+        //Passo 4 Diagrama de comunicação
+        if(nomeFuncionario != null && nomeCliente != null){
+            String situacao = "Em andamento";
+
+            Cliente clienteDaOperacao = control.getCliente(credencialCliente);
+
+            System.out.println("Cliente da operação: ");
+            System.out.println(clienteDaOperacao.toString());
+
+            Venda vendaRealizada = new Venda(dataVenda, SisVendaDeCarros.idVenda, idFuncionario, situacao, carro, clienteDaOperacao, this);
+            
+            System.out.println("Venda da operação: ");
+            System.out.println(vendaRealizada.toString());
+            
+        
+            Pagamento pagamentoDaOperacao = new Pagamento(valorCarro, tipoPagamento, 0.0);
+            
+            double desconto = pagamentoDaOperacao.calculaDesconto(credencialCliente, valorCarro, tipoPagamento);
+
+            System.out.println("Valor do carro com desconto: ");
+            System.out.println(desconto);
+
+
+            control.insereVenda(vendaRealizada);
+
+            
+
+
+
+            situacao = "Pedido finalizado";
+
+            vendaRealizada.pedidoRealizado(dataVenda, tipoPagamento, situacao);
+
+            System.out.println("Compra depois de finalizada: ");
+            System.out.println(vendaRealizada.toString());
+
+
+        
+            SisVendaDeCarros.idVenda = SisVendaDeCarros.idVenda + 1;
+        }   
+
+
+
+
+
+        if(credencialCliente.length()==14){
+
+        }
+        
+
+
+
     }
 
     public void agendarTestDrive(Carro carro, Cliente cliente, Date data){

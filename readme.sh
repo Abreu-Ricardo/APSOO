@@ -1,0 +1,3 @@
+javac -classpath mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar --module-path "/home/igor/Desktop/Trabalho1it/APSOO_interface/openjfx-16_linux-x64_bin-sdk/javafx-sdk-16/lib" --add-modules javafx.controls Interface.java Cena1.java Cena2.java Cena3.java PopUp.java ClienteDAO.java CarroDAO.java FuncionarioDAO.java VendaDAO.java Conexao.java SisVendaDeCarros.java Carro.java TestDrive.java Cliente.java PessoaFisica.java PessoaJuridica.java Funcionario.java Gerente.java Atendente.java Venda.java Pagamento.java
+java -classpath .:mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar --module-path "/home/igor/Desktop/Trabalho1it/APSOO_interface/openjfx-16_linux-x64_bin-sdk/javafx-sdk-16/lib" --add-modules javafx.controls Interface
+

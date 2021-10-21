@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 
+
+
 public class SisVendaDeCarros {
     
     
-
+    static int idVenda = 0;
 
     public String buscarPessoa(String credencial){
         //Precisa ser implementado
@@ -52,15 +54,22 @@ public class SisVendaDeCarros {
     public float calculaValor(String modeloCarro,String marcaCarro,String corCarro){
         //Precisa ser implementado
 
-        float a = 0.1f;
+        CarroDAO carroDao = new CarroDAO();
 
-        return a;
+        float ret = carroDao.calculaValorBanco(modeloCarro, marcaCarro, corCarro);
+
+        return ret;
     }
 
     public String buscarFuncionario(String idFuncionario){
         //Precisa ser implementado
 
-        return "a";
+        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+
+        String ret = funcionarioDao.buscarFuncionarioBanco(idFuncionario);
+
+
+        return ret;
     }
 
     public ArrayList<String> listarFormasPagamento(){
@@ -76,6 +85,60 @@ public class SisVendaDeCarros {
         ArrayList<String> cars = new ArrayList<String>(); 
         return cars;
     }
+
+    public ArrayList<String> pegaCpfFuncionarios(){
+        //Precisa ser implementado (eu acho)
+        FuncionarioDAO fDao = new FuncionarioDAO();
+
+        ArrayList<String> listaCpf = new ArrayList<String>();
+
+        listaCpf = fDao.buscaCpfFuncionarios();
+        
+        return listaCpf;
+    }
+
+    public String buscaPlacaCarro(String opcaoMarca, String opcaoModelo, String opcaoCor){
+
+        CarroDAO cDao = new CarroDAO();
+
+        String ret = cDao.buscaPlacaCarroBanco(opcaoMarca,opcaoModelo,opcaoCor);
+
+
+        return ret;
+
+    }
+
+    public ArrayList<String> pegaInfoFuncionarios(String credencial){
+        //Precisa ser implementado (eu acho)
+        FuncionarioDAO fDao = new FuncionarioDAO();
+
+        ArrayList<String> listaInfo = new ArrayList<String>();
+
+        listaInfo = fDao.pegaInfoFuncionariosBanco(credencial);
+        
+        return listaInfo;
+    }
+
+    public Cliente getCliente(String credencial){
+
+        ClienteDAO cDao = new ClienteDAO();
+
+        Cliente clienteRet = cDao.getClienteBanco(credencial);
+
+        return clienteRet;
+
+    }
+
+    public void insereVenda(Venda venda){
+
+        VendaDAO vDao = new VendaDAO();
+
+        vDao.insereVendaBanco(venda);
+
+    }
+
+
+
 
     public void inserirFuncionario(Funcionario funcionario){
         //A ser implementado
@@ -100,11 +163,6 @@ public class SisVendaDeCarros {
     public void deletaFuncionario(Funcionario funcionario){
         //A ser implementado
     }
-
-    public void insereVenda(Venda venda){
-        //A ser implementado
-    }
-
 
 
 

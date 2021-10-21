@@ -2,7 +2,28 @@ public class Carro {
 
     private String placa;
     private String marca;
+    private String modelo;
     private String cor;
+    private float valor;
+
+
+
+    public Carro(String placa, String marca, String modelo, String cor, float valor) {
+        this.placa = placa;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.cor = cor;
+        this.valor = valor;
+    }
+
+
+    public float getValor() {
+        return this.valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
 
     public String getPlaca() {
         return this.placa;
@@ -28,6 +49,22 @@ public class Carro {
         this.cor = cor;
     }
 
+    public String getModelo() {
+        return this.modelo;
+    }
 
-    
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " placa='" + getPlaca() + "'" +
+            ", marca='" + getMarca() + "'" +
+            ", modelo='" + getModelo() + "'" +
+            ", cor='" + getCor() + "'" +
+            ", valor='" + getValor() + "'" +
+            "}";
+    }    
 }

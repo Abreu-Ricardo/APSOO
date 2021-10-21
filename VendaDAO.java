@@ -15,8 +15,55 @@ public class VendaDAO {
     }
 
     public void insereVendaBanco(Venda venda){
-        //A ser implementado
+        
+        String sql = "INSERT INTO venda(idVenda, idFuncionario, carroDaVenda, idCliente, dataVenda, situacao) VALUES (?,?,?,?,?,?)";
+        
+        Connection conn = null;
+        PreparedStatement pstm = null;
+
+        try{
+            //Cria conexão
+            conn = Conexao.createConnectionToMySQL();
+
+            pstm = (PreparedStatement) conn.prepareStatement(sql);
+            
+            pstm.setInt(1, venda.getIdVenda());
+            pstm.setString(2, venda.getIdFuncionario());
+            pstm.setString(3, venda.getCarroDaVenda().getPlaca());
+            pstm.setInt(4, venda.getClienteDaVenda().getIdCliente());
+
+
+            java.util.Date utilStartDate = venda.getDate();
+            java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+
+            pstm.setDate(5, sqlStartDate);
+            pstm.setString(6, venda.getSituacao());
+           
+
+            pstm.execute();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+
+            //fechar conexões
+            try{
+                if(pstm!=null){
+                    pstm.close();
+                }
+
+                if(conn!=null){
+                    conn.close();
+                }
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }
+
+
+    
+
 
 
 }

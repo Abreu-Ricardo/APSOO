@@ -34,10 +34,18 @@ public class Pagamento {
         this.desconto = desconto;
     }
 
-    public double calculaDesconto(String CNPJ, double valorCarro, int tipoPagamento){
+    public double calculaDesconto(String credencial, double valorCarro, int tipoPagamento){
         //A ser implementado
 
-        return 0.1;
+        if(tipoPagamento==2 && credencial.length()==14){
+            valorCarro = valorCarro - (0.10 * valorCarro);
+        }else{
+            valorCarro = 0.0;
+        }
+
+        this.desconto = 0.10 * valorCarro;
+
+        return valorCarro;
     }
 
     public boolean registraPagamento(int tipoPagamento, double valorCarro, double desconto){
