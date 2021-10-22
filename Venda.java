@@ -93,7 +93,7 @@ public class Venda {
 
     public void pedidoRealizado(Date data, int tipoPagamento, String situacao){
         //A ser implementado
-		this.situacao = situacao;
+		this.situacao = "Pedido Realizado";
 
 		
     }

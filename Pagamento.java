@@ -3,11 +3,23 @@ public class Pagamento {
     private double valor;
     private int tipoDePagamento;
     private double desconto;
+    private int idVenda;
 
-    public Pagamento(double valor, int tipoDePagamento, double desconto) {
+    public Pagamento(double valor, int tipoDePagamento, double desconto, int idVenda) {
         this.valor = valor;
         this.tipoDePagamento = tipoDePagamento;
         this.desconto = desconto;
+        this.idVenda = idVenda;
+    }
+
+ 
+
+    public int getIdVenda() {
+        return this.idVenda;
+    }
+
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
     }
 
     public double getValor() {

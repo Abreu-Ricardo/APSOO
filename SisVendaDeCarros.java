@@ -138,6 +138,16 @@ public class SisVendaDeCarros {
     }
 
 
+    public boolean inserePagamento(Pagamento pagamento){
+
+        PagamentoDAO pDao = new PagamentoDAO();
+
+        boolean ret;
+        ret = pDao.inserePagamentoBanco(pagamento);
+
+        return ret;
+
+    }
 
 
     public void inserirFuncionario(Funcionario funcionario){

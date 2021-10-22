@@ -81,38 +81,45 @@ public class Funcionario {
         System.out.println(nomeFuncionario);
         System.out.println(nomeCliente);
 
-        //Passo 4 Diagrama de comunicação
+      
         if(nomeFuncionario != null && nomeCliente != null){
             String situacao = "Em andamento";
 
+            //Instancia cliente para instanciar venda
             Cliente clienteDaOperacao = control.getCliente(credencialCliente);
-
             System.out.println("Cliente da operação: ");
             System.out.println(clienteDaOperacao.toString());
 
+
+            //Passo 4 Instancia venda
             Venda vendaRealizada = new Venda(dataVenda, SisVendaDeCarros.idVenda, idFuncionario, situacao, carro, clienteDaOperacao, this);
             
+
+            //Exibe venda da operação
             System.out.println("Venda da operação: ");
             System.out.println(vendaRealizada.toString());
             
         
-            Pagamento pagamentoDaOperacao = new Pagamento(valorCarro, tipoPagamento, 0.0);
-            
+            //Passo 5 Instancia pagamento
+            Pagamento pagamentoDaOperacao = new Pagamento(valorCarro, tipoPagamento, 0.0, SisVendaDeCarros.idVenda);
+        
+            //Passo 6 Calcula desconto
             double desconto = pagamentoDaOperacao.calculaDesconto(credencialCliente, valorCarro, tipoPagamento);
 
             System.out.println("Valor do carro com desconto: ");
             System.out.println(desconto);
 
-
+            //Passo 7 Insere a venda no banco de dados
             control.insereVenda(vendaRealizada);
 
-            
+            //Passo 8 Insere o pagamento no banco e retorna true se tudo ocorrer certo
+            boolean pagamentoApto = control.inserePagamento(pagamentoDaOperacao);
 
+            //Passo 9 Muda a situação do pagamento
+            if(pagamentoApto==true){
+                vendaRealizada.pedidoRealizado(dataVenda, tipoPagamento, situacao);
+            }
 
-
-            situacao = "Pedido finalizado";
-
-            vendaRealizada.pedidoRealizado(dataVenda, tipoPagamento, situacao);
 
             System.out.println("Compra depois de finalizada: ");
             System.out.println(vendaRealizada.toString());
