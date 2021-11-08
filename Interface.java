@@ -30,9 +30,11 @@ public class Interface extends Application{
     PopUp popup = new PopUp();
 
 
-    static ClienteView c1   = new ClienteView();
-    static CarroView c2     = new CarroView();
-    static PagamentoView c3 = new PagamentoView();
+    static ClienteView    c1             = new ClienteView();
+    static CarroView      c2             = new CarroView();
+    static PagamentoView  c3             = new PagamentoView();
+    static EscolheAcao    pagView        = new EscolheAcao();
+    static TesteDriveView testeDriveView = new TesteDriveView();
     //Cena2 c2 = new Cena2();
 
     // // Agrupador de radio buttons, com ele garante que apenas
@@ -53,13 +55,23 @@ public class Interface extends Application{
 
   
 
-        janela.setScene(c1.cena1());
+        //janela.setScene(c1.cena1());
+        janela.setScene(pagView.escolhaDaCena());
         janela.show();
 
     }
 
     static public void mensagensEntreCenas(int msg){
-        if (msg == 1){
+
+        if (msg == -1){
+            jan.setScene(pagView.escolhaDaCena());
+        }
+
+        else if (msg == 0){
+            jan.setScene(testeDriveView.cenaTesteDrive());
+        }
+
+        else if (msg == 1){
             jan.setScene(c1.cena1());
         }
         else if (msg == 2){

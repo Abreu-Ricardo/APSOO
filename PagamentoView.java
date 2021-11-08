@@ -20,7 +20,6 @@ public class PagamentoView{
     SisVendaDeCarros control = new SisVendaDeCarros();
 
     Scene cena3;
-    PopUp popup = new PopUp();
     ClienteView c1;
     CarroView c2;
 
@@ -149,7 +148,7 @@ public class PagamentoView{
 
         // Botoes da cena 3
         // Botoes para andar entre as cenas
-        Button next3  = new Button("Next");
+        Button next3  = new Button("Confirmar");
         Button volta3 = new Button("Voltar");
 
 
@@ -344,7 +343,7 @@ public class PagamentoView{
 
 
 
-                popup.popFin("Pedido Realizado", "Pedido realizado com sucesso");
+                PopUp.popFin("Pedido Realizado", "Pedido realizado com sucesso");
                 break;
             
             case 2:
@@ -390,11 +389,11 @@ public class PagamentoView{
                 //Chama realiza pedido
                 funcionarioDaOperacao.realizaPedido(cred1, cred2, carro,
                 this.cpfFuncionarioDaOperacao, data, this.tipoPagamentoDaOperacao, valor);
-                popup.popFin("Pedido Realizado", "Pedido realizado com sucesso");
+                PopUp.popFin("Pedido Realizado", "Pedido realizado com sucesso");
                 break;
 
             case 3:
-                popup.popErro("Pedido Realizado", "O pagamento não pôde ser realizado");
+                PopUp.popErro("Pedido Realizado", "O pagamento não pôde ser realizado");
                 break;
         
             default:
@@ -402,7 +401,7 @@ public class PagamentoView{
         }
 
         //c1 = new Cena1();
-        Interface.mensagensEntreCenas(1);
+        Interface.mensagensEntreCenas(-1);
         //jan.setScene(c1.cena1(jan));
     }
 }

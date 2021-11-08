@@ -24,7 +24,6 @@ public class CarroView {
 
     Scene cena2;
     Stage jan;
-    PopUp popup = new PopUp();
     ClienteView c1;   // = new Cena1();
     PagamentoView c3;
     String credencialCliente, idCliente;      // Identificacao do cliente
@@ -88,7 +87,7 @@ public class CarroView {
         Label cor    = new Label("Cor:     ", corView);
 
         // Botoes da cena2
-        Button next2 = new Button("Next");
+        Button next2 = new Button("Próximo");
         Button volta2 = new Button("Voltar");
 
         next2.getStyleClass().add("next");
@@ -179,7 +178,7 @@ public class CarroView {
         }
 
         else{
-            popup.popErro("Erro na escolha do carro", "Preencha todas as opções!");
+            PopUp.popErro("Erro na escolha do carro", "Preencha todas as opções!");
         }
 
         // Caso tenha errado e volte para as escolhas, elas precisam

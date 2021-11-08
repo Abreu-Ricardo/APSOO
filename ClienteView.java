@@ -48,7 +48,6 @@ public class ClienteView {
     
     // static Cena2 c2 = new Cena2();
     // static Cena3 c3 = new Cena3();
-    PopUp popup = new PopUp();
 
     public Scene cena1(/*Stage janela*/ ){
         Scene cena1;
@@ -57,6 +56,9 @@ public class ClienteView {
 
         // jan.setHeight(450);
         // jan.setWidth(900);
+        Button voltaEscolhaDeCena = new Button("Voltar");
+        //voltaEscolhaDeCena.getStyleClass().add("next");
+        voltaEscolhaDeCena.setOnAction(e -> voltaCenaInicial());
 
 
         GridPane grid1 = new GridPane();
@@ -87,7 +89,7 @@ public class ClienteView {
         grid1.add(idClienteText, 1, 2);
 
         // Botao para proxima cena
-        Button botaoF = new Button("Next");
+        Button botaoF = new Button("Próximo");
         botaoF.getStyleClass().add("next");
         grid1.add(botaoF, 1, 3);
         
@@ -110,7 +112,7 @@ public class ClienteView {
         cnpjText.setPromptText("Digite o CNPJ do cliente...");
             
         grid1.add(cnpjTitulo, 5, 1);
-        grid1.add(cnpjText, 6, 1);
+        grid1.add(cnpjText,   6, 1);
 
     
         // idCliente juridico
@@ -123,9 +125,11 @@ public class ClienteView {
 
 
         // Botao para proxima cena
-        Button botaoJ = new Button("Next");
+        Button botaoJ = new Button("Próximo");
         botaoJ.getStyleClass().add("next");
         grid1.add(botaoJ, 6, 3);
+
+        grid1.add(voltaEscolhaDeCena, 0, 8);
 
 
         botaoJ.setOnAction(e -> botaoDir( cnpjText.getText(), idClienteJuText.getText()  ));
@@ -136,18 +140,11 @@ public class ClienteView {
         return cena1;
     }
 
-    // static public void mensagensEntreCenas(int msg){
-    //     if (msg == 1){
-    //         jan.setScene(cena1);
-    //     }
-    //     else if (msg == 2){
-    //         jan.setScene(c2.cena2());
-    //     }
+    public void voltaCenaInicial(){
+        Interface.mensagensEntreCenas(-1);
+    }
 
-    //     else if (msg == 3){
-    //         jan.setScene(c3.cena3());
-    //     }
-    // }
+
 
     public void botaoEsq(String cpfCliente, String idCliente){
 
@@ -155,7 +152,7 @@ public class ClienteView {
             System.out.printf("Entrou no if do botaoEsq: %s \n", cpfCliente);
 
             String nomeCliente = control.buscarPessoa(cpfCliente);
-            popup.popCliente("O cliente é: ", nomeCliente);  //fazer busca no banco aqui, e jogar o nome correto com o idcliente/ou cnpj cliente
+            PopUp.popCliente("O cliente é: ", nomeCliente);  //fazer busca no banco aqui, e jogar o nome correto com o idcliente/ou cnpj cliente
             
             // ARRUMAR
             //trocaParaCena2(cpfCliente, idCliente);
@@ -166,11 +163,11 @@ public class ClienteView {
         
         else if ( !verficaCPF(cpfCliente) ){
             //System.out.printf("Entrou no else if cpfCliente do botaoEsq: %s", cpfCliente);
-            popup.popErro("Erro na identificação", "CPF/CNPJ inválido!");
+            PopUp.popErro("Erro na identificação", "CPF/CNPJ inválido!");
         }
 
         else if ( !verificaId(idCliente) ){
-            popup.popErro("Erro na identificação", "Preencha todos os campos!");
+            PopUp.popErro("Erro na identificação", "Preencha todos os campos!");
         }
         // tamanho de cpf = 11
         
@@ -181,18 +178,18 @@ public class ClienteView {
         if (verficaCNPJ(cnpjCliente) && verificaId(idCliente)){
             System.out.println("Entrou no if do botaoDir");
             String nomeCliente = control.buscarPessoa(cnpjCliente);
-            popup.popCliente("O cliente é: ", nomeCliente);
+            PopUp.popCliente("O cliente é: ", nomeCliente);
              //fazer busca no banco aqui, e jogar o nome correto com o idcliente/ou cnpj cliente
             trocaParaCena2(cnpjCliente, idCliente);
         }
 
         else if ( verficaCNPJ(cnpjCliente) == false){
             //System.out.println("Entrou no 1 else if do botaoDir");
-            popup.popErro("Erro na identificação", "CPF/CNPJ inválido!");
+            PopUp.popErro("Erro na identificação", "CPF/CNPJ inválido!");
         }
     
         else if (!verificaId(idCliente)){
-            popup.popErro("Erro na identificação", "Preencha todos os campos!");
+            PopUp.popErro("Erro na identificação", "Preencha todos os campos!");
         }
         // tamanho de cnpj = 14
         return;
