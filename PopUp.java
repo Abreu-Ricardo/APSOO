@@ -150,7 +150,7 @@ public class PopUp {
 
         Button butao = new Button("OK");
         butao.setOnAction(e -> window.close());
-        butao.getStyleClass().add("botao-erro");
+        butao.getStyleClass().add("next");
 
         VBox box = new VBox();
         box.getChildren().addAll(l, butao);

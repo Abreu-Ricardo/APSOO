@@ -63,7 +63,7 @@ public class CarroDAO {
         //Precisa ser implementado
         
 
-        String sql = "SELECT modelo FROM venda.carro where marca = ?";
+        String sql = "SELECT DISTINCT modelo FROM venda.carro where marca = ?";
 
         ArrayList<String> listaDeModelos = new ArrayList<String>();
 
@@ -93,6 +93,7 @@ public class CarroDAO {
 
         }catch(Exception e){
             e.printStackTrace();
+            System.out.println("ERRO na busca de modelos(CarroDAO)");
         }finally{
             try{
                 if(rset!=null){

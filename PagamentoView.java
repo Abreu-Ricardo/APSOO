@@ -15,15 +15,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime; 
 
 
-public class Cena3{
+public class PagamentoView{
 
     SisVendaDeCarros control = new SisVendaDeCarros();
 
-    Stage jan;
     Scene cena3;
     PopUp popup = new PopUp();
-    Cena1 c1;
-    Cena2 c2;
+    ClienteView c1;
+    CarroView c2;
 
     String cpfFuncionarioDaOperacao;
     String idEscolhido;
@@ -39,7 +38,7 @@ public class Cena3{
            
     
 
-    public Cena3( Cena2 cena2, String credencial, String id, String opMarca, 
+    public PagamentoView( CarroView cena2, String credencial, String id, String opMarca, 
                   String opModelo, String opCor) {
         
         c2 = cena2;
@@ -50,6 +49,9 @@ public class Cena3{
         opcaoCor = opCor;
     }
     
+    public PagamentoView(){
+
+    }
 
     // Agrupador de radio buttons, com ele garante que apenas
     // um radio button pode ser clicado
@@ -60,11 +62,11 @@ public class Cena3{
     RadioButton pagamentoFinanciamento  = new RadioButton("Financiamento");
     RadioButton pagamentoCartao         = new RadioButton("Cartão");
 
-    public Scene cena3(Stage janela){
+    public Scene cena3(){
 
-        jan = janela;
-        jan.setHeight(450);
-        jan.setWidth(900);
+        // jan = janela;
+        // jan.setHeight(450);
+        // jan.setWidth(900);
 
         GridPane grid3 = new GridPane();
         grid3.setAlignment(Pos.CENTER);
@@ -234,15 +236,17 @@ public class Cena3{
         //grid3.add(nomeFuncText, 1, 3);
         grid3.add(idFuncBox,       1, 3);
 
-        cena3 = new Scene(  grid3, 850, 300);
+        cena3 = new Scene(  grid3, 850, 400);
         cena3.getStylesheets().add("estilo.css");
 
         return cena3;
     }
 
     public void trocaParaCena2(/*ActionEvent e*/){
-        c2 = new Cena2();
-        jan.setScene(c2.cena2(jan));   
+        c2 = new CarroView();
+        //jan.setScene(c2.cena2());   
+        Interface.mensagensEntreCenas(2);
+
 
     }
 
@@ -397,7 +401,8 @@ public class Cena3{
                 break;
         }
 
-        c1 = new Cena1();
+        //c1 = new Cena1();
+        Interface.mensagensEntreCenas(1);
         //jan.setScene(c1.cena1(jan));
     }
 }

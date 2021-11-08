@@ -39,21 +39,24 @@ import javafx.scene.control.ButtonBase.*;
 import javafx.scene.input.KeyEvent;
 
 
-public class Cena1 {
+public class ClienteView {
 
     SisVendaDeCarros control = new SisVendaDeCarros();
 
-    Stage jan;
-    Cena2 c2;
+    // static Stage jan;
+    // static Scene cena1;
+    
+    // static Cena2 c2 = new Cena2();
+    // static Cena3 c3 = new Cena3();
     PopUp popup = new PopUp();
 
-    public Scene cena1(Stage janela){
-        jan = janela;
+    public Scene cena1(/*Stage janela*/ ){
         Scene cena1;
+        //jan = janela;
         //Cena2 c2 = new Cena2();
 
-        jan.setHeight(450);
-        jan.setWidth(900);
+        // jan.setHeight(450);
+        // jan.setWidth(900);
 
 
         GridPane grid1 = new GridPane();
@@ -127,18 +130,38 @@ public class Cena1 {
 
         botaoJ.setOnAction(e -> botaoDir( cnpjText.getText(), idClienteJuText.getText()  ));
             
-        cena1 = new Scene( grid1, 850, 300);
+        cena1 = new Scene( grid1, 850, 400);
         cena1.getStylesheets().add("estilo.css");
+
         return cena1;
     }
+
+    // static public void mensagensEntreCenas(int msg){
+    //     if (msg == 1){
+    //         jan.setScene(cena1);
+    //     }
+    //     else if (msg == 2){
+    //         jan.setScene(c2.cena2());
+    //     }
+
+    //     else if (msg == 3){
+    //         jan.setScene(c3.cena3());
+    //     }
+    // }
 
     public void botaoEsq(String cpfCliente, String idCliente){
 
         if (verficaCPF(cpfCliente) && verificaId(idCliente)){
             System.out.printf("Entrou no if do botaoEsq: %s \n", cpfCliente);
+
             String nomeCliente = control.buscarPessoa(cpfCliente);
             popup.popCliente("O cliente é: ", nomeCliente);  //fazer busca no banco aqui, e jogar o nome correto com o idcliente/ou cnpj cliente
-            trocaParaCena2(cpfCliente, idCliente);
+            
+            // ARRUMAR
+            //trocaParaCena2(cpfCliente, idCliente);
+            Interface.c2.credencialCliente = cpfCliente;
+            Interface.c2.idCliente = idCliente;
+            Interface.mensagensEntreCenas(2);
         }
         
         else if ( !verficaCPF(cpfCliente) ){
@@ -150,7 +173,6 @@ public class Cena1 {
             popup.popErro("Erro na identificação", "Preencha todos os campos!");
         }
         // tamanho de cpf = 11
-        return;
         
     }
 
@@ -231,10 +253,10 @@ public class Cena1 {
     }
 
     public void trocaParaCena2(String credencialCliente, String idCliente){
-        c2 = new Cena2(this, credencialCliente, idCliente);
+        //c2 = new Cena2( credencialCliente, idCliente);
 
 
-        jan.setScene(c2.cena2(jan));  
+        Interface.mensagensEntreCenas(2);
         //System.out.println("SEt On ACtIon clicado em Cena1"); 
 
     }

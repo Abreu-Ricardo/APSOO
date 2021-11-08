@@ -15,40 +15,41 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalDateTime; 
 
-public class Cena2 {
+public class CarroView {
 
     SisVendaDeCarros control = new SisVendaDeCarros();
 
     ArrayList<String> listaModelosCarros = new ArrayList<>();
     ArrayList<String> listaCores = new ArrayList<>();
 
+    Scene cena2;
     Stage jan;
     PopUp popup = new PopUp();
-    Cena1 c1;   // = new Cena1();
-    Cena3 c3;
+    ClienteView c1;   // = new Cena1();
+    PagamentoView c3;
     String credencialCliente, idCliente;      // Identificacao do cliente
     String opcaoMarca  = null,                 // Variaveis para salvar as opcoes marcadas 
            opcaoModelo = null, 
            opcaoCor    = null; 
 
-           ComboBox  cb1, // combobox da marca 
-           cb2, // combobox do modelo
-           cb3; // combobox da cor
+    ComboBox  cb1, // combobox da marca 
+              cb2, // combobox do modelo
+              cb3; // combobox da cor
 
-    public Cena2(Cena1 cena1, String credencial, String id){
-        c1 = cena1;
+    public CarroView( String credencial, String id){
+        //c1 = cena1;
         credencialCliente = credencial;
         idCliente = id;
     }
     
-    public Cena2(){
+    public CarroView(){
 
     }
-    public Scene cena2(Stage janela){
-        jan = janela;
-        jan.setHeight(450);
-        jan.setWidth(900);
-        Scene cena2;
+    public Scene cena2(){
+        // jan = janela;
+        // jan.setHeight(450);
+        // jan.setWidth(900);
+        // Scene cena2;
 
         GridPane grid2 = new GridPane();
         grid2.setAlignment(Pos.CENTER);
@@ -145,7 +146,7 @@ public class Cena2 {
         // Botao volta
         grid2.add(volta2, 0, 6);
 
-        cena2 = new Scene( grid2, 850, 300);
+        cena2 = new Scene( grid2, 850, 400);
         cena2.getStylesheets().add("estilo.css");
 
         return cena2;
@@ -153,19 +154,27 @@ public class Cena2 {
     }
 
     public void trocaParaCena1(/*ActionEvent e*/){
-        jan.setScene(c1.cena1(jan));  
+        //jan.setScene(c1.cena1(jan));  
+        Interface.mensagensEntreCenas(1);
         
-        
-        c1 = new Cena1();
-        jan.setScene(c1.cena1(jan)); 
+        //c1 = new Cena1();
+        //jan.setScene(c1.cena1(jan)); 
 
     }
 
     public void trocaParaCena3(/*ActionEvent e*/){
         
         if ( opcaoMarca != null && (opcaoModelo != null && opcaoCor != null) ){
-            c3 = new Cena3(this, credencialCliente, idCliente, opcaoMarca, opcaoModelo, opcaoCor);
-            jan.setScene(c3.cena3(jan));    
+            Interface.c3.credencialCliente  = this.credencialCliente;
+            Interface.c3.idCliente          = this.idCliente;
+            Interface.c3.opcaoMarca         = this.opcaoMarca;
+            Interface.c3.opcaoModelo        = this.opcaoModelo;
+            Interface.c3.opcaoCor           = this.opcaoCor;
+
+
+            //c3 = new Cena3(this, credencialCliente, idCliente, opcaoMarca, opcaoModelo, opcaoCor);
+            //jan.setScene(c3.cena3());   
+            Interface.mensagensEntreCenas(3); 
             
         }
 

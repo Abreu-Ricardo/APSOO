@@ -3,7 +3,7 @@ import java.sql.*;
 public class Conexao {
 
     //Coloque o username e o password correspondetes ao seu usuario do mysql
-    private static final String USERNAME = "root";
+    private static final String USERNAME = "ricardo";
     private static final String PASSWORD = "123456";
 
     //Defina o nome do esquema com Apsoo, ou troque o nome pelo nome desejado
