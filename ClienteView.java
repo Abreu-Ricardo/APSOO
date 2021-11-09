@@ -180,7 +180,10 @@ public class ClienteView {
             String nomeCliente = control.buscarPessoa(cnpjCliente);
             PopUp.popCliente("O cliente é: ", nomeCliente);
              //fazer busca no banco aqui, e jogar o nome correto com o idcliente/ou cnpj cliente
-            trocaParaCena2(cnpjCliente, idCliente);
+            //trocaParaCena2(cnpjCliente, idCliente);
+            Interface.c2.credencialCliente = cnpjCliente;
+            Interface.c2.idCliente = idCliente;
+            Interface.mensagensEntreCenas(2);
         }
 
         else if ( verficaCNPJ(cnpjCliente) == false){
