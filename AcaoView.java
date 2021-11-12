@@ -39,7 +39,7 @@ import javafx.scene.control.ButtonBase.*;
 import javafx.scene.input.KeyEvent;
 
 
-public class EscolheAcao{
+public class AcaoView{
     ToggleGroup grupo = new ToggleGroup();
     RadioButton testeDrive; 
     RadioButton venda;      

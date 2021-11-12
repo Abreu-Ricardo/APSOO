@@ -33,7 +33,7 @@ public class Interface extends Application{
     static ClienteView    c1             = new ClienteView();
     static CarroView      c2             = new CarroView();
     static PagamentoView  c3             = new PagamentoView();
-    static EscolheAcao    pagView        = new EscolheAcao();
+    static AcaoView       pagView        = new AcaoView();
     static TesteDriveView testeDriveView = new TesteDriveView();
     //Cena2 c2 = new Cena2();
 
