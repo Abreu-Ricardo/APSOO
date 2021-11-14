@@ -173,6 +173,17 @@ public class SisVendaDeCarros {
     }
 
 
+    public ArrayList<String> pegaCpfClientes(){
+        //Precisa ser implementado (eu acho)
+        ClienteDAO cDao = new ClienteDAO();
+
+        ArrayList<String> listaCpf = new ArrayList<String>();
+
+        listaCpf = cDao.buscaCpfClientesBanco();
+        
+        return listaCpf;
+    }
+
 
     public void inserirFuncionario(Funcionario funcionario){
         //A ser implementado

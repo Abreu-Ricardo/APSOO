@@ -142,7 +142,59 @@ public class ClienteDAO {
 
     } 
 
+    public ArrayList<String> buscaCpfClientesBanco(){
 
+        String sql = "SELECT cpf FROM venda.pessoaf";
+
+        ArrayList<String> listaCpf = new ArrayList<String>();
+
+        Connection conn = null;
+
+        PreparedStatement pstm = null;
+
+        //Classe pra pegar dados do banco
+        ResultSet rset = null;
+
+
+        try{
+            conn = Conexao.createConnectionToMySQL();
+
+            pstm = (PreparedStatement) conn.prepareStatement(sql);
+            rset = pstm.executeQuery();
+
+            while(rset.next()){
+
+                listaCpf.add(rset.getString("cpf"));
+
+
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(rset!=null){
+                    rset.close();
+                }
+
+                if(pstm!=null){
+                    pstm.close();
+                }
+
+                if(conn!=null){
+                    conn.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+        return listaCpf;        
+
+
+
+    }
 
 
 

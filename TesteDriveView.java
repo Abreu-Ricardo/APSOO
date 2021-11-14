@@ -35,9 +35,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.ButtonBase.*;
 import javafx.scene.input.KeyEvent;
 import java.util.Date;
+import java.util.ResourceBundle.Control;
 
 
 public class TesteDriveView /*extends Application*/{
+
+    ArrayList<String> listaModelosCarros = new ArrayList<>();
+    ArrayList<String> listaCores = new ArrayList<>();
+
 
     ComboBox   idCliente, marcaBox, modeloBox, corBox;
     Label      nomeClienteD;
@@ -47,6 +52,8 @@ public class TesteDriveView /*extends Application*/{
 
     //MainView principalView;
     Scene view;
+
+    SisVendaDeCarros control = new SisVendaDeCarros();
 
  
     
@@ -73,15 +80,21 @@ public class TesteDriveView /*extends Application*/{
         Label dataDoTeste = new Label("Escolha uma data:    ");
 
 
+        ArrayList<String> listaCpfClientes = control.pegaCpfClientes();
 
-
-        ObservableList<String> idsClientes = FXCollections.observableArrayList("Op1", "Op2", "Op3");
+        
+        
+       
+        ObservableList<String> idsClientes = FXCollections.observableArrayList(listaCpfClientes);
+        
+        
         idCliente = new ComboBox(idsClientes);
         idCliente.setOnAction(e -> pegaCliente());
 
-        ObservableList<String> marcasEx  = FXCollections.observableArrayList("Op1", "Op2", "Op3");
-        ObservableList<String> modelosEx = FXCollections.observableArrayList("Op1", "Op2", "Op3");
-        ObservableList<String> coresEx   = FXCollections.observableArrayList("Op1", "Op2", "Op3");
+        ArrayList<String> listaMarcas = control.buscaMarcasCarros();
+        ObservableList<String> marcasEx  = FXCollections.observableArrayList(listaMarcas);
+        ObservableList<String> modelosEx = FXCollections.observableArrayList("Marca não selecionada");
+        ObservableList<String> coresEx   = FXCollections.observableArrayList("Marca e modelo não selecionados");
 
 
         marcaBox    = new ComboBox(marcasEx);
@@ -142,19 +155,34 @@ public class TesteDriveView /*extends Application*/{
     }
 
     public void pegaCliente(){
-        String nome = idCliente.getValue().toString();
-        System.out.println(nome);
+        String cpf = idCliente.getValue().toString();
+        
+        String nomeCliente = control.buscarPessoa(cpf);
+
+        
         
         // Atualiza nome do cliente
-        nomeClienteD.setText(nome);
+        nomeClienteD.setText(nomeCliente);
     }
 
     public void pegaMarca(){
-        System.out.println(marcaBox.getValue().toString());
+        String opcaoMarca = marcaBox.getValue().toString();
+        System.out.println( opcaoMarca );
+
+    
+        this.listaModelosCarros = this.control.buscaModelosCarros(opcaoMarca);
+        modeloBox.setItems(FXCollections.observableArrayList(this.listaModelosCarros));
     }
 
     public void pegaModelo(){
-        System.out.println(modeloBox.getValue().toString());
+        
+        String opcaoModelo = modeloBox.getValue().toString();
+        System.out.println( opcaoModelo );
+        
+        this.listaCores = this.control.buscaCoresCarros(opcaoModelo);
+        corBox.setItems(FXCollections.observableArrayList(this.listaCores));
+
+
     }
 
     public void pegaCor(){
