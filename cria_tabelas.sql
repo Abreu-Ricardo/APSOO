@@ -1,16 +1,16 @@
+create database venda;
 -- drop table venda.carro, venda.cliente, venda.funcionario, venda.pessoaf, venda.pessoaj, venda.testdrive, venda.gerente, venda.telefone;
-
-
--- create database venda;
--- create schema venda;
+use  venda;
 
 CREATE TABLE venda.carro(
-	placa varchar(7) NOT NULL,-- PRIMARY KEY,
+	placa varchar(7) NOT NULL,
 	marca varchar(15),
 	modelo varchar(15),
 	cor varchar(10),
-    valor double
+    valor float
 );
+
+
 
 -- select * FROM venda.carro;
 
@@ -18,7 +18,7 @@ CREATE TABLE venda.carro(
 -- tem tabela de atendente ja que nao tem atributo 
 -- a mais
 CREATE TABLE venda.funcionario(
-	cpf varchar(11) NOT NULL,-- PRIMARY KEY,
+	cpf varchar(11) NOT NULL,
 	nome varchar(30) NOT NULL,
 	email varchar(30)
 );
@@ -27,21 +27,21 @@ CREATE TABLE venda.funcionario(
 
 
 CREATE TABLE venda.telefone(
-	cpfFunc varchar(11) NOT NULL,-- PRIMARY KEY,
+	cpfFunc varchar(11) NOT NULL,
 	tel varchar(11) 
 );
 
 -- select * FROM venda.telefone;
 
 CREATE TABLE venda.gerente(
-	idGerente INTEGER NOT NULL,-- PRIMARY KEY,
+	idGerente INTEGER NOT NULL,
 	cpfGer VARCHAR(11) NOT NULL
 );
 
 -- select * FROM venda.gerente;
 
 CREATE TABLE venda.cliente (
-	idCliente INTEGER NOT NULL,-- PRIMARY KEY,
+	idCliente INTEGER NOT NULL,
 	endereco VARCHAR(20),
 	estado VARCHAR(15),
 	cidade VARCHAR(15),
@@ -51,39 +51,47 @@ CREATE TABLE venda.cliente (
 
 
 CREATE TABLE venda.pessoaf(
-	cpf VARCHAR(11) NOT NULL ,--PRIMARY KEY,
+	cpf VARCHAR(11) NOT NULL,
 	nome VARCHAR(30) NOT NULL,
 	idCliente INTEGER NOT NULL
 );
 
 
 CREATE TABLE venda.pessoaj(
-	cnpj VARCHAR(14) NOT NULL,-- PRIMARY KEY,
+	cnpj VARCHAR(14) NOT NULL,
 	razaoSocial VARCHAR(20),
 	nomeFantasia VARCHAR(20) NOT NULL,
 	idCliente INTEGER NOT NULL
 );
 
 
+
 CREATE TABLE venda.testdrive(
 	placaCarro VARCHAR(7) NOT NULL,
-	dataInicio DATE,
-	dataDoTermino DATE,
-	estadoInicioDoCarro VARCHAR(15),
-	estadoCarroVolta VARCHAR(15)
+	cpfClente  VARCHAR(11) NOT NULL,
+	dataAgendada  DATE
+);
+
+CREATE TABLE venda.acompanhamentotestdrive(
+	idFuncionario VARCHAR(11),
+	placaCarro VARCHAR(7) NOT NULL,
+	estadoCarroChegada VARCHAR(15)
 );
 
 
+
+
 CREATE TABLE venda.venda(
-	idVenda INTEGER PRIMARY KEY,
+	idVenda INTEGER,
 	idFuncionario VARCHAR(11), -- cpf do func
 	carroDaVenda VARCHAR(7),   -- placa do carro
 	idCliente INTEGER,	   	   -- idCliente da tabela cliente
 	dataVenda date, 
-	situacao VARCHAR(12),
+	situacao VARCHAR(12)
     
 );
 
+select * from venda.venda;
 
 CREATE TABLE venda.pagamento(
 	idVenda INTEGER,
@@ -95,7 +103,7 @@ CREATE TABLE venda.pagamento(
 
 -- Colocando chave primaria em placa para a tabela carro
 ALTER TABLE venda.carro ADD CONSTRAINT
-placa_pk PRIMARY KEY(placa);
+chave_pk PRIMARY KEY(placa);
 
 -- FUNCIONARIOS
 -- Colocando chave primaria em cpf da tabela funcionario
@@ -108,7 +116,7 @@ ALTER TABLE venda.gerente ADD CONSTRAINT
 idgerente_pk PRIMARY KEY(idGerente);
 
 ALTER TABLE venda.gerente ADD CONSTRAINT
-cpfger_fk FOREIGN KEY (cpfGer) REFERENCES venda.funcionario(cpf) ON UPDATE CASCADE;
+cpfger_fk FOREIGN KEY(cpfGer) REFERENCES venda.funcionario(cpf);
 
 -- Colocando chave secundaria da tabela telefone referenciando para cpf 
 -- na tabela do funcionario
@@ -125,7 +133,7 @@ idCliente_pk PRIMARY KEY(idCliente);
 -- Referenciando idcliente de pessoaf para
 -- idcliente da tabela cliente
 ALTER TABLE venda.pessoaf ADD CONSTRAINT
-idClientef_fk FOREIGN KEY(idCliente) REFERENCES venda.cliente(idCliente);
+idCliente_fk FOREIGN KEY(idCliente) REFERENCES venda.cliente(idCliente);
 
 -- Referenciando idcliente de pessoaj para
 -- idCliente da tabela cliente
@@ -137,11 +145,18 @@ idClientej_fk FOREIGN KEY(idCliente) REFERENCES venda.cliente(idCliente);
 ALTER TABLE venda.testdrive ADD CONSTRAINT
 placaCarro_fk FOREIGN KEY(placaCarro) REFERENCES venda.carro(placa);
 
+ALTER TABLE venda.acompanhamentotestdrive ADD CONSTRAINT
+placaCarroAcompanhamento_fk FOREIGN KEY(placaCarro) REFERENCES venda.carro(placa);
+
 -- VENDA
 -- Atribuindo chave primaria para atributo idVenda
 -- e colocando as chaves secundarias
 ALTER TABLE venda.venda ADD CONSTRAINT
 idVenda_pk PRIMARY KEY(idVenda);
+
+ALTER TABLE venda.venda modify COLUMN idVenda INT auto_increment;
+
+
 
 ALTER TABLE venda.venda ADD CONSTRAINT
 idFuncionario_fk FOREIGN KEY(idFuncionario) REFERENCES venda.funcionario(cpf) ON UPDATE CASCADE;
@@ -150,7 +165,7 @@ ALTER TABLE venda.venda ADD CONSTRAINT
 carroDaVenda_fk FOREIGN KEY(carroDaVenda) REFERENCES venda.carro(placa) ON UPDATE CASCADE;
 
 ALTER TABLE venda.venda ADD CONSTRAINT
-idCliente_fk FOREIGN KEY(idCliente) REFERENCES venda.cliente(idCliente) ON UPDATE CASCADE;
+idClienteVenda_fk FOREIGN KEY(idCliente) REFERENCES venda.cliente(idCliente) ON UPDATE CASCADE;
 
 
 -- PAGAMENTO
