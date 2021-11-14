@@ -129,7 +129,7 @@ public class Funcionario {
             System.out.println("Compra depois de finalizada: ");
             System.out.println(vendaRealizada.toString());
 
-
+            control.atualizaStatusPagamento();
         
             SisVendaDeCarros.idVenda = SisVendaDeCarros.idVenda + 1;
         }   

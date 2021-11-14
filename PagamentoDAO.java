@@ -52,7 +52,58 @@ public class PagamentoDAO{
 
     }
 
+    
+
+    public void atualizaStatusPagamentoBanco(){ 
+    
+        String sql;
+
+        sql = "update venda.venda set situacao = 'Concluída' ";
+  
 
 
+  
+
+        Connection conn = null;
+
+        PreparedStatement pstm = null;
+
+        //Classe pra pegar dados do banco
+        ResultSet rset = null;
+
+
+        try{
+            conn = Conexao.createConnectionToMySQL();
+
+            pstm = (PreparedStatement) conn.prepareStatement(sql);
+
+            pstm.executeUpdate();
+
+          
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(rset!=null){
+                    rset.close();
+                }
+
+                if(pstm!=null){
+                    pstm.close();
+                }
+
+                if(conn!=null){
+                    conn.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+    
+    }
+    
     
 }

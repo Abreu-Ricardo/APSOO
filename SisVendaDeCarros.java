@@ -164,6 +164,14 @@ public class SisVendaDeCarros {
     }
 
 
+    public void atualizaStatusPagamento(){
+
+        PagamentoDAO pDao = new PagamentoDAO();
+
+        pDao.atualizaStatusPagamentoBanco();
+
+    }
+
 
 
     public void inserirFuncionario(Funcionario funcionario){
