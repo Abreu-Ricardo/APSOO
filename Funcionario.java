@@ -90,18 +90,23 @@ public class Funcionario {
             System.out.println("Cliente da operação: ");
             System.out.println(clienteDaOperacao.toString());
 
+            int idVendaPagamento = control.contaVendas();
+
 
             //Passo 4 Instancia venda
-            Venda vendaRealizada = new Venda(dataVenda, SisVendaDeCarros.idVenda, idFuncionario, situacao, carro, clienteDaOperacao, this);
+            Venda vendaRealizada = new Venda(dataVenda, idVendaPagamento+1, idFuncionario, situacao, carro, clienteDaOperacao, this);
             
 
             //Exibe venda da operação
             System.out.println("Venda da operação: ");
             System.out.println(vendaRealizada.toString());
             
-        
+           
+            System.out.println("oi oi oi");
+            System.out.println(idVendaPagamento);
+
             //Passo 5 Instancia pagamento
-            Pagamento pagamentoDaOperacao = new Pagamento(valorCarro, tipoPagamento, 0.0, SisVendaDeCarros.idVenda);
+            Pagamento pagamentoDaOperacao = new Pagamento(valorCarro, tipoPagamento, 0.0, idVendaPagamento+1);
         
             //Passo 6 Calcula desconto
             double desconto = pagamentoDaOperacao.calculaDesconto(credencialCliente, valorCarro, tipoPagamento);

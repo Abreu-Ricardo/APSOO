@@ -16,7 +16,7 @@ public class VendaDAO {
 
     public void insereVendaBanco(Venda venda){
         
-        String sql = "INSERT INTO venda(idVenda, idFuncionario, carroDaVenda, idCliente, dataVenda, situacao) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO venda( idFuncionario, carroDaVenda, idCliente, dataVenda, situacao) VALUES (?,?,?,?,?)";
         
         Connection conn = null;
         PreparedStatement pstm = null;
@@ -27,17 +27,17 @@ public class VendaDAO {
 
             pstm = (PreparedStatement) conn.prepareStatement(sql);
             
-            pstm.setInt(1, venda.getIdVenda());
-            pstm.setString(2, venda.getIdFuncionario());
-            pstm.setString(3, venda.getCarroDaVenda().getPlaca());
-            pstm.setInt(4, venda.getClienteDaVenda().getIdCliente());
+            //pstm.setInt(1, venda.getIdVenda());
+            pstm.setString(1, venda.getIdFuncionario());
+            pstm.setString(2, venda.getCarroDaVenda().getPlaca());
+            pstm.setInt(3, venda.getClienteDaVenda().getIdCliente());
 
 
             java.util.Date utilStartDate = venda.getDate();
             java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
 
-            pstm.setDate(5, sqlStartDate);
-            pstm.setString(6, venda.getSituacao());
+            pstm.setDate(4, sqlStartDate);
+            pstm.setString(5, venda.getSituacao());
            
 
             pstm.execute();
@@ -62,6 +62,61 @@ public class VendaDAO {
     }
 
 
+
+    public int contaVendas(){ 
+    
+        String sql;
+
+        sql = "select count(idVenda) from venda.venda;";
+  
+
+
+        int ret = 0;
+
+        Connection conn = null;
+
+        PreparedStatement pstm = null;
+
+        //Classe pra pegar dados do banco
+        ResultSet rset = null;
+
+
+        try{
+            conn = Conexao.createConnectionToMySQL();
+
+            pstm = (PreparedStatement) conn.prepareStatement(sql);
+
+            rset = pstm.executeQuery();
+
+            rset.next();
+
+        
+            ret = rset.getInt("count(idVenda)");
+          
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(rset!=null){
+                    rset.close();
+                }
+
+                if(pstm!=null){
+                    pstm.close();
+                }
+
+                if(conn!=null){
+                    conn.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+        return ret;
+    }
     
 
 

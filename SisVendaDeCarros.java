@@ -150,6 +150,22 @@ public class SisVendaDeCarros {
     }
 
 
+    public int contaVendas(){
+
+        VendaDAO vDao = new VendaDAO();
+
+        int ret;
+
+        ret = vDao.contaVendas();
+
+
+        return ret;
+
+    }
+
+
+
+
     public void inserirFuncionario(Funcionario funcionario){
         //A ser implementado
     }
