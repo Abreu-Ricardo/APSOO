@@ -131,7 +131,7 @@ public class Funcionario {
 
             control.atualizaStatusPagamento();
         
-            SisVendaDeCarros.idVenda = SisVendaDeCarros.idVenda + 1;
+           
         }   
 
 

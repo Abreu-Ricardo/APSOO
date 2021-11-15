@@ -198,6 +198,22 @@ public class TesteDriveView /*extends Application*/{
     }
 
     public void finaliza(){
+
+        String cpfCliente = idCliente.getValue().toString();
+        String marca = marcaBox.getValue().toString();
+        String modelo = modeloBox.getValue().toString();
+        String cor = corBox.getValue().toString();
+        LocalDate dataEscolhida = data.getValue();
+
+        System.out.println(data.getValue());
+
+
+        //Passo 1 Diagrama de comunicação - 2º iteração
+        control.agendaTestDrive(cpfCliente, dataEscolhida, marca, modelo, cor);
+
+
+
+
         pop.popFin("Teste Drive", "Agendamento realizado com sucesso.");
     }
 

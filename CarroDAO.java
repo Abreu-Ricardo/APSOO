@@ -300,6 +300,65 @@ public class CarroDAO {
 
     }
 
+    public ArrayList<String> buscaPlacasCarrosBanco(String opcaoMarca,String opcaoModelo,String opcaoCor){
+
+        String sql = "SELECT placa FROM venda.carro where marca = ? AND modelo = ? AND cor = ?";
+
+        ArrayList<String> listaPlacas = new ArrayList<String>();
+
+        Connection conn = null;
+
+        PreparedStatement pstm = null;
+
+        //Classe pra pegar dados do banco
+        ResultSet rset = null;
+
+
+        try{
+            conn = Conexao.createConnectionToMySQL();
+
+            pstm = (PreparedStatement) conn.prepareStatement(sql);
+
+            pstm.setString(1, opcaoMarca);
+            pstm.setString(2, opcaoModelo);
+            pstm.setString(3, opcaoCor);
+
+
+            rset = pstm.executeQuery();
+
+            while(rset.next()){
+
+                listaPlacas.add(rset.getString("placa"));
+
+
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(rset!=null){
+                    rset.close();
+                }
+
+                if(pstm!=null){
+                    pstm.close();
+                }
+
+                if(conn!=null){
+                    conn.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+        return listaPlacas;        
+
+
+
+    }
 
     public void inserirCarroBanco(Carro carro){
         //A ser implementado

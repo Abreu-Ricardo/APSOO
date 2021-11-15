@@ -1,11 +1,10 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
 
 public class SisVendaDeCarros {
     
-    
-    static int idVenda = 0;
 
     public String buscarPessoa(String credencial){
         //Precisa ser implementado
@@ -183,6 +182,50 @@ public class SisVendaDeCarros {
         
         return listaCpf;
     }
+
+    public boolean agendaTestDrive(String cpfCliente, LocalDate data, String marca, String modelo, String cor){
+
+        CarroDAO cDao = new CarroDAO();
+        TestDriveDAO tDao = new TestDriveDAO();
+        String placaDoTestDrive = "";
+         
+        boolean ret = false;
+
+
+        //Passo 2 Diagrama de comunicação - 2º iteração
+        ArrayList<String> placasCarros = cDao.buscaPlacasCarrosBanco(marca, modelo, cor);
+
+        for(int i = 0 ; i < 2 ; i++){
+            System.out.println(placasCarros.get(i));
+        }
+
+        //Passo 3 Diagrama de comunicação - 2º iteração
+        placaDoTestDrive = tDao.verificaDisponibilidadeTestDriveBanco(placasCarros, data);
+        System.out.println(placaDoTestDrive);  //Retorna a placa 
+
+        //Passo 4 Diagrama de comunicação - 2º iteração
+        if(placaDoTestDrive != ""){
+            ret = true;
+            TestDrive objTesteDrive = new TestDrive(data, cpfCliente, placaDoTestDrive);
+
+            System.out.println(objTesteDrive.toString());
+
+            //Passo 5 Diagrama de comunicação - 2º iteração
+            tDao.insereTestDriveBanco(objTesteDrive);
+        }else{
+            System.out.println("Não deu pra agendar");
+        }
+
+ 
+
+
+
+
+        return ret;
+    }
+
+
+
 
 
     public void inserirFuncionario(Funcionario funcionario){
