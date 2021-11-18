@@ -51,6 +51,9 @@ insert into venda.funcionario(cpf, nome, email) values
 ('12345678922', 'Igor', 'igor@ufms.br'),
 ('12345678933', 'Wellington', 'wellington@ufms.br');
 
+insert into venda.telefone(cpfFunc, tel) values ('12345678911', '4002-8911'), ('12345678922', '4002-8922'), ('12345678933', '4002-8933');
+
+
 -- select * from venda.funcionario;
 
 insert into venda.cliente(idCliente, endereco, estado, cidade, telefone, email) values
