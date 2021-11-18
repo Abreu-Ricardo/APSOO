@@ -1,6 +1,8 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.swing.Popup;
+
 
 
 public class SisVendaDeCarros {
@@ -195,10 +197,7 @@ public class SisVendaDeCarros {
         //Passo 2 Diagrama de comunicação - 2º iteração
         ArrayList<String> placasCarros = cDao.buscaPlacasCarrosBanco(marca, modelo, cor);
 
-        for(int i = 0 ; i < 2 ; i++){
-            System.out.println(placasCarros.get(i));
-        }
-
+    
         //Passo 3 Diagrama de comunicação - 2º iteração
         placaDoTestDrive = tDao.verificaDisponibilidadeTestDriveBanco(placasCarros, data);
         System.out.println(placaDoTestDrive);  //Retorna a placa 
@@ -211,12 +210,10 @@ public class SisVendaDeCarros {
             System.out.println(objTesteDrive.toString());
 
             //Passo 5 Diagrama de comunicação - 2º iteração
-            tDao.insereTestDriveBanco(objTesteDrive);
-        }else{
-            System.out.println("Não deu pra agendar");
+            tDao.insereTestDriveBanco(objTesteDrive);   
         }
-
  
+        
 
 
 

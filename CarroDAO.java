@@ -120,7 +120,7 @@ public class CarroDAO {
         //Precisa ser implementado
 
 
-        String sql = "SELECT cor FROM venda.carro where modelo = ?";
+        String sql = "SELECT distinct cor FROM venda.carro where modelo = ?";
 
         ArrayList<String> listaDeCores = new ArrayList<String>();
 

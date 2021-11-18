@@ -209,12 +209,17 @@ public class TesteDriveView /*extends Application*/{
 
 
         //Passo 1 Diagrama de comunicação - 2º iteração
-        control.agendaTestDrive(cpfCliente, dataEscolhida, marca, modelo, cor);
+        boolean testDriveAgendado = control.agendaTestDrive(cpfCliente, dataEscolhida, marca, modelo, cor);
+
+        if(testDriveAgendado){
+            PopUp.popFin("Teste Drive", "Agendamento realizado com sucesso.");
+        }else{
+            PopUp.popErro("Erro!", "Seu agendamento não foi possível");
+        }
 
 
 
-
-        pop.popFin("Teste Drive", "Agendamento realizado com sucesso.");
+        //pop.popFin("Teste Drive", "Agendamento realizado com sucesso.");
     }
 
     public void voltaCenaInicial(){
